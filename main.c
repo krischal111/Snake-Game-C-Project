@@ -4,6 +4,9 @@
 char playgroundstr[20][20][3];
 struct makeplayground playground;
 struct makemenudata menudata;
+
+
+
 #include"menutext.h"
 
 
@@ -103,7 +106,7 @@ startmain:
         break;
 
     case 3:
-
+        goto levelsmain;
         break;
 
     case 4:
@@ -147,15 +150,106 @@ optionsmain:
     case 2:
         goto AIoption;
         break;
+
     }
+    goto optionsmain;
 
 
 soundoption:
-    ;
+    system("cls");
+    esc = interactive(soundMenu[0],20,2,&y);
+    if(esc == 1)
+    {
+        goto optionsmain;
+    }
+
+    switch(y)
+    {
+    case 0:
+        menudata.options.soundon = TRUE;
+        break;
+    case 1:
+        menudata.options.soundon = FALSE;
+        break;
+    }
+    goto optionsmain;
+
+
 redefineoption:
-    ;
+    system("cls");
+    esc = interactive(redefineMenu[0],20,4,&y);
+    if(esc == 1)
+    {
+        goto optionsmain;
+    }
+
+    switch(y)
+    {
+    case 0: //current key and next key assignment
+        printf("\t\tUp");
+        break;
+
+    case 1: //current key and next key assignment
+        printf("\t\tDown");
+        break;
+
+    case 2: //current key and next key assignment
+        printf("\t\tLeft");
+        break;
+
+    case 3: //current key and next key assignment
+        printf("\t\tRight");
+        break;
+    };
+    goto optionsmain;
+
+
 AIoption:
-    ;
+    system("cls");
+    esc = interactive(AIMenu[0],6,2,&y);
+    if(esc == 1)
+    {
+        goto optionsmain;
+    }
+
+    switch(y)
+    {
+    case 0:
+        menudata.options.AImode = FALSE;
+        break;
+
+    case 1:
+        menudata.options.AImode = TRUE;
+        break;
+    };
+    goto optionsmain;
+
+
+levelsmain:
+    system("cls");
+    esc = interactive(levelsMenu[0],10,10,&y);
+    if(esc == 1)
+    {
+        goto startmain;
+    }
+
+    if(y>=0 && y<10)
+    {
+        menudata.level = y+1;
+        goto startmain;
+    }
+    goto startmain;
+
+
+
+
+
+
+
+
+
+
+
 return 0;
 
 }

@@ -12,119 +12,22 @@ struct makemenudata menudata;
 #include"displayfuncs.h"
 
 
-void interactive(char *menutext,int size,int n,int *y){
+int interactive(char *menutext,int size,int n,int *y)
+{
+    struct keyboardinputs kb;
+    menubegin:
+    gotoxy(0,1);
 
-    gotoxy(0,0);
 
     for(int i=0;i<n;i++ )
     {
-
         if(i == *y)
         {
             printf(" ");
-
         }
         printf(" %s   \n", menutext+i*size);
     }
-    gotoxy(1,*y);
-
-}
-
-
-int main()
-{
-    int y=0,main_allow = 1,option_allow = 0,help_allow = 0,exit_allow = 1,option_menu_allow = 0,sound_allow = 0;
-    menudata.gamerunning = 0;
-    _Bool can_continue = FALSE;
-    struct keyboardinputs kb;
-
-    startmain:
-    if(main_allow == 1)
-    {
-
-        system("cls");
-        if(menudata.gamerunning)
-        {
-            interactive(mainmenu[0],20,7,&y);
-
-        }
-
-        else
-        {
-            interactive(mainmenu[1],20,6,&y);
-
-        }
-
-    }
-
-
-
-    optionsmain:
-       if(option_allow == 1)
-        {
-            system("cls");
-            interactive(optionMenu,20,3,&y);
-
-            getch();
-            if(getch()=='\n')
-            {
-                    option_allow = 0;
-                    option_menu_allow = 1;
-                    printf("\t%d",y);
-                    switch(y)
-                    {
-                        case 0:
-                            system("cls");
-                            printf("\tsound menu 1");
-                            interactive(soundMenu,20,2,&y);
-                            getchar();
-                            getch();
-                        case 1:
-                            system("cls");
-                            printf("\tredefine menu 2");
-                            interactive(redefineMenu,20,4,&y);
-                            getchar();
-                            getch();
-                        case 2:
-                            system("cls");
-                            printf("\tcontrol mode 3");
-                            interactive(controlModeMenu,6,2,&y);
-                            getchar();
-                            getch();
-
-
-                    }
-
-            }
-        }
-
-    help:
-        if(help_allow == 1)
-        {
-            system("cls");
-            printf("\n %s",helpText);
-            printf("\n Press any key to redirect to main menu");
-
-            getchar();
-            getch();
-            help_allow = 0;
-            main_allow = 1;
-            exit_allow = 0;
-
-            goto startmain;
-
-
-        }
-
-    soundoption:
-        if(sound_allow==1)
-        {
-                system("cls");
-                interactive(soundMenu,20,2,&y);
-        }
-
-
-
+    gotoxy(1,*y + 1);
 
     while(1)
     {
@@ -134,103 +37,130 @@ int main()
         if(!kb.nothing)
         {
             if(kb.down)
-                if(main_allow)
-                    incremod(&y,7);
-                else if(option_allow)
-                    incremod(&y,3);
-
+                incremod(y,n);
 
             if(kb.up)
-                if(main_allow)
-                    decremod(&y,7);
-                else if(option_allow)
-                    decremod(&y,3);
+                decremod(y,n);
+
             if(kb.enter)
-            {
-                if(main_allow)
-                {
-
-
-                if(!menudata.gamerunning)
-                {
-                    y++;
-                }
-
-                switch (y)
-                {
-                    case 0:         //Call the resume operation
-
-                    if(can_continue == FALSE)
-                    {
-                        goto startmain;
-                    }
-                    break;
-
-                    case 1:          //Call the play operation
-                        can_continue == TRUE;
-                    break;
-
-                    case 2:         //call options
-                        option_allow = 1;
-                        main_allow = help_allow = 0;
-
-                        goto optionsmain;
-
-                    break;
-
-                    case 3:         //levels
-
-                    break;
-
-                    case 4:         //high scores
-
-                    break;
-
-                    case 5:
-                        option_allow = main_allow = 0;
-
-                        help_allow = 1;
-                        goto help;         //help
-
-                    break;
-
-                    case 6:         //exit
-                        if(exit_allow == 1)
-                            goto exitMenu;
-                        else
-                        {
-                            exit_allow = 1;
-                            goto startmain;
-                        }
-                    break;
-                }
-                break;
-                }
-
-                if(option_allow == 1)
-                {
-                    option_allow = 0;
-
-                    switch(y)
-                    {
-                    case 0:
-                        sound_allow = 1;
-                        goto soundoption;
-                    }
-
-                }
-            }
+                return 0;
 
             if(kb.esc)
-            {
-                exitMenu:
-                system("cls");
-                printf("\n Thank you");
-                getchar();
-                break;
-            }
-            goto startmain;
+                return 1;
+
+            goto menubegin;
         }
     }
 }
+
+
+int main()
+{
+    int y=0,esc = 0;
+
+    menudata.gamerunning = 0;
+
+startmain:
+    {
+        system("cls");
+        if(menudata.gamerunning)
+        {
+            esc = interactive(mainmenu[0],20,7,&y);
+        }
+        else
+        {
+            esc = interactive(mainmenu[1],20,6,&y);
+            y++;
+        }
+    }
+
+    if(esc == 1 || y == 6)
+    {
+        system("cls");
+        printf(" Exit game?");
+        esc = interactive(confirmText[0],5,2,&y);
+        if(esc == 1 || y != 0)
+        {
+            goto startmain;
+        }
+        else
+            exit(0);
+
+    }
+
+    switch(y)
+    {
+    case 0:
+
+        break;
+
+    case 1:
+
+        break;
+
+    case 2:
+        goto optionsmain;
+        break;
+
+    case 3:
+
+        break;
+
+    case 4:
+
+        break;
+
+    case 5:
+
+        break;
+
+    case 6:
+
+        break;
+
+    default:
+        y=0;
+    }
+
+    goto startmain;
+
+
+optionsmain:
+
+    system("cls");
+    esc = interactive(optionMenu[0],20,3,&y);
+    if(esc == 1)
+    {
+        goto startmain;
+    }
+
+    switch(y)
+    {
+    case 0:
+        goto soundoption;
+        break;
+
+    case 1:
+        goto redefineoption;
+        break;
+
+    case 2:
+        goto AIoption;
+        break;
+    }
+
+
+soundoption:
+    ;
+redefineoption:
+    ;
+AIoption:
+    ;
+return 0;
+
+}
+
+
+
+
 //menudata.options.soundon = !menudata.options.soundon;

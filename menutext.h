@@ -42,4 +42,8 @@ char controlModeMenu[2][6]=
 
 char helpText[200] = "Use arrow keys or WASD to move the snake. Collect fruits to increase length. Boosts will speed up movement.\n Have fun";
 
-
+char confirmText[2][5] =
+                    {
+                        "Yes",
+                        "No"
+                    };

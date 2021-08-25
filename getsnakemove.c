@@ -147,11 +147,6 @@ int getsnaketomove()
     }
 }
 
-
-
-
-
-
 // Important one
 void printsnake()
 {
@@ -223,30 +218,32 @@ void displayinfos(struct makegameinfo g)
         break;        
     }
 
-    locprint(6,61,"\332\304\277");
-    locprint(7,63,"\263\b\b\b\263");
-    locprint(8,59,"\332\304\305\304\305\304\277");
-    locprint(9,65,"\263\b\b\b\263\b\b\b\263\b\b\b\263");
-    locprint(10,59,"\300\304\301\304\301\304\331");
-    locatecursor(7,62);
+    int starty = 6, startx = 60;
+
+    locprint(starty + 0, startx +4,"\332\304\304\304\277");
+    locprint(starty + 1, startx +8,"\263\b\b\b\b\b\263");
+    locprint(starty + 2, startx + 0,"\332\304\304\304\305\304\304\304\305\304\304\304\277");
+    locprint(starty + 3, startx + 12,"\263\b\b\b\b\b\263\b\b\b\b\b\263\b\b\b\b\b\263");
+    locprint(starty + 4, startx + 0,"\300\304\304\304\301\304\304\304\301\304\304\304\331");
+    locatecursor(starty + 1, startx + 6);
     if(g.kb.up)
     printf("\030");
     else
     printf(" ");
 
-    locatecursor(9,62);
+    locatecursor(starty + 3, startx + 6);
     if(g.kb.down)
     printf("\031");
     else
     printf(" ");
 
-    locatecursor(9,60);
+    locatecursor(starty + 3, startx + 2);
     if(g.kb.left)
     printf("\021");
     else
     printf(" ");
 
-    locatecursor(9,64);
+    locatecursor(starty + 3, startx + 10);
     if(g.kb.right)
     printf("\020");
     else

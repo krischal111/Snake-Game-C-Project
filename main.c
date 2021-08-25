@@ -22,6 +22,7 @@ int interactive(char *menutext,int size,int n,int *y)
     gotoxy(0,1);
 
 
+
     for(int i=0;i<n;i++ )
     {
         if(i == *y)
@@ -93,31 +94,31 @@ startmain:
 
     switch(y)
     {
-    case 0:
+    case 0: //continue
 
         break;
 
-    case 1:
+    case 1: //start game
 
         break;
 
-    case 2:
+    case 2: //options
         goto optionsmain;
         break;
 
-    case 3:
+    case 3: //levels
         goto levelsmain;
         break;
 
-    case 4:
-
+    case 4: //highscores
+        goto highscoresmain;
         break;
 
-    case 5:
-
+    case 5: //help
+        goto helpmain;
         break;
 
-    case 6:
+    case 6: //exit
 
         break;
 
@@ -242,10 +243,21 @@ levelsmain:
 
 
 
+highscoresmain:
+    system("cls");
+    goto startmain;
 
 
 
+helpmain:
+    system("cls");
+    esc = interactive(helpText,200,1,&y);
+    if(esc == 1)
+    {
+        goto startmain;
+    }
 
+    goto startmain;
 
 
 
@@ -257,4 +269,4 @@ return 0;
 
 
 
-//menudata.options.soundon = !menudata.options.soundon;
+

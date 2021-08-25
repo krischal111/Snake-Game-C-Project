@@ -54,7 +54,7 @@ char levelsMenu[10][10] =
                             "Level 10"
                         };
 
-char helpText[200] = "Use arrow keys or WASD to move the snake. Collect fruits to increase length. Boosts will speed up movement.\n Have fun";
+char helpText[200] = "Use arrow keys or WASD to move the snake. Collect fruits to increase length. Boosts will speed up movement.\n Have fun\n\n Press enter to redirect to main menu.";
 
 char confirmText[2][5] =
                     {

@@ -37,13 +37,15 @@ struct makesnake
     } body[400];
 };
 
-
-// struct makesnake
-// {
-//     int length;
-//     COORD body[400];           // maximum snake length is 400
-//     enum direction going[400];
-// };
+struct makegameinfo
+{
+    unsigned int score;
+    int level;
+    _Bool soundon;
+    int gametype;
+    struct keyboardinputs kb;
+    enum direction direction;
+};
 
 struct scoredata
 {
@@ -76,10 +78,10 @@ const unsigned char horizontal2border = 205,  vertical2border  = 186;           
 const unsigned char topleft2border    = 201,  topmid2border    = 203,   topright2border     = 187;//  ╔╦╗
 const unsigned char leftmid2border    = 204,  centre2border    = 206,   rightmid2border     = 185;//  ╠╬╣
 const unsigned char bottomleft2border = 200,  bottommid2border = 202,   bottomright2border  = 188;//  ╚╩╝
-const unsigned char horizontalborder  = 196,  verticalborder   = 179;                             //  ─ │
-const unsigned char topleftborder     = 218,  topmidborder     = 194,   toprightborder      = 191;//  ┌┬┐
-const unsigned char leftmidborder     = 195,  centreborder     = 197,   rightmidborder      = 180;//  ├┼┤
-const unsigned char bottomleftborder  = 192,  bottommidborder  = 193,   bottomrightborder   = 217;//  └┴┘
+const unsigned char horizontalborder  = 196,  verticalborder   = 179;                             //  ─ │ 304, 263
+const unsigned char topleftborder     = 218,  topmidborder     = 194,   toprightborder      = 191;//  ┌┬┐ 332, 302, 277
+const unsigned char leftmidborder     = 195,  centreborder     = 197,   rightmidborder      = 180;//  ├┼┤ 303, 305, 264
+const unsigned char bottomleftborder  = 192,  bottommidborder  = 193,   bottomrightborder   = 217;//  └┴┘ 300, 301, 331
 const unsigned char portalchar1       = 91,   portalchar2      = 93;                              //   []
 const unsigned char upsolidblock      = 223,  downsolidblock   = 220;                             //  ▀ ▄
 
@@ -104,7 +106,7 @@ const char * uup_s = "\333 ",       * ddown_s = " \333";        // '█ '  ' █
 
 const char * leftdown_s   = " \334";          //          ' ▄'<--
 const char * downright_s  = " \337";          //          ' ▀'-->
-const char * rightup_s    = "\337";           //           -->'▀ '
+const char * rightup_s    = "\337 ";           //           -->'▀ '
 const char * upleft_s     = "\334 ";          //           <--'▄ '
 
 char * helpmsg = "This is a snake game.";

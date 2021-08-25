@@ -58,7 +58,7 @@ struct makemenudata
     {
         _Bool soundon;
         _Bool AImode;
-    };
+    } options;
     int level;
     int gametype;
 };

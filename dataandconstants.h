@@ -59,7 +59,7 @@ struct makegameelements
 
     _Bool presenceofsuperfood;
     COORD superfoood;
-}
+};
 
 struct scoredata
 {
@@ -108,7 +108,6 @@ const char * bottomright_b = "\274 ";       //          "\274\272";
 const char * horizontal_b  = "\315\315";
 const char * vertical_b    = "\272";
 const char * barrier_b     = "\262\262";
-const char * portal_b      = "[]";
 
 const char * portal_b[5]   = {"[]", "{}", "()", "<>", "\363\362"};      // last one = ≤≥
 

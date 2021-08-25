@@ -1,4 +1,4 @@
-// Our program uses folowing standers header files:
+// Our program uses folowing standerd header files:
 
 #include<stdio.h>
 #include<windows.h>

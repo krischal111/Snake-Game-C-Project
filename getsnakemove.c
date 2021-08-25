@@ -8,21 +8,21 @@ char playgroundstr[20][20][3];              // 2 characters for each block // ne
 struct makeplayground playground;
 struct makesnake snake;
 
+
+
 // Functions ####################################################
 #include "displayfuncs.h"
 #include "customcalc.h"
 #include "kbandmouse.h"
 #include "soundthings.h"
 
-enum doubledirection doubledirectinof(enum direction, enum direction);
-char * bodyblock(enum doubledirection);
 int getsnaketomove();
 void printsnake();
+void displayinfos(struct makegameinfo);
 
 int main()
 {
     // playtuneusing(gameovermusic, gameovermusiclength);
-
     srand(time(NULL));
     system("cls");
     snake.length = 15;
@@ -38,26 +38,20 @@ int getsnaketomove()
     int offsetcounter=0;
     int mod120counter=0;
     struct keyboardinputs kb;           // stores all inputs allowed in this game
+    struct makegameinfo gameinfo;
 
-    displayborder();
+    displayborder(20,20);
     while(1)
     {
 
-        //################################### controls how fast snake moves
+        //############################################ controls how fast snake moves
         Sleep(100);
 
-        /*
-        offsetcounter++;
-        offsetcounter%=2;
-        */ 
-        incremod(&offsetcounter,2);             // This replaces the commented code
+        incremod(&offsetcounter,2);
         incremod(&mod120counter,120);
-        // locprint(0,50,"");
-        // printf("%3d",mod120counter);
 
         // ############################################ controls human or AI mode
         kb=gameinput(0);
-
         
         {                   // controls exit or pause of game
         if(kb.esc)
@@ -67,10 +61,10 @@ int getsnaketomove()
         else if(kb.space)
         {
         do
-        {
-            Sleep(100);
-            kb = gameinput(0);              // wait for human input when paused
-        }while(kb.nothing);
+            {
+                Sleep(100);
+                kb = gameinput(0);              // wait for human input when paused
+            }while(kb.nothing);
         }
         }
 
@@ -96,18 +90,11 @@ int getsnaketomove()
             break;
         }
 
-
-        // erases last 3 tails
-        for(int i = snake.length-4; (i>=0) && i<snake.length; i++)
-        {
-            gameprint(snake.body[i].location.Y, snake.body[i].location.X,"  ");
-        }
-
         //############################## spot for increasing/decreasing snake's length
-        enum direction thisdirection, nextdirection;
-        enum doubledirection bodyturntype;
+        // if(mod120counter%20 == 0)
+        // snake.length++;
 
-        // move body
+        // where whole body moves
         for(int i = snake.length; i>0; i--)
         {
             snake.body[i] = snake.body[i-1];
@@ -135,6 +122,15 @@ int getsnaketomove()
         snake.body[0].going = wheredoigo;
 
         printsnake();
+        
+        // Increase score here;
+        gameinfo.score = 0;
+        gameinfo.kb = kb;
+        gameinfo.level = 5;
+        gameinfo.soundon = 1;
+        gameinfo.gametype = 0;
+        gameinfo.direction = wheredoigo;
+        displayinfos(gameinfo);
 
         cursorloc(0,30);
 
@@ -155,133 +151,104 @@ int getsnaketomove()
 
 
 
-// Ignore these
-enum doubledirection doubledirectinof(enum direction d0, enum direction d1)
-{
-    enum doubledirection dd;
-    
-    switch(d0)
-    {
-        case up:
-        switch(d1)
-        {
-            case up:        dd = uup;       break;
-            case down:      dd = opposite;  break;
-            case left:      dd = upleft;    break;
-            case right:     dd = upright;   break;
-        }
-        break;
-
-        case down:
-        switch(d1)
-        {
-            case up:        dd = opposite;  break;
-            case down:      dd = ddown;     break;
-            case left:      dd = downleft;  break;
-            case right:     dd = downright; break;
-        }
-        break;
-
-        case left:
-        switch(d1)
-        {
-            case up:        dd = leftup;    break;
-            case down:      dd = leftdown;  break;
-            case left:      dd = lleft;     break;
-            case right:     dd = opposite;  break;
-        }
-        break;
-
-        case right:
-        switch(d1)
-        {
-            case up:        dd = rightup;   break;
-            case down:      dd = rightdown; break;
-            case left:      dd = opposite;  break;
-            case right:     dd = rright;    break;
-        }
-        break;
-    }
-
-    return dd;
-} 
-
-char * bodyblock(enum doubledirection dd)
-{
-    char * c;
-
-    switch(dd)
-    {
-        case upright:
-        c = (char *) upright_s;
-        break;
-
-        case rightdown:
-        c = (char *) rightdown_s;
-        break;
-
-        case downleft:
-        c = (char *) downleft_s;
-        break;
-
-        case leftup:
-        c = (char *) leftup_s;
-        break;
-
-        case uup:
-        c = (char *) uup_s;
-        break;
-
-        case ddown:
-        c = (char *) ddown_s;
-        break;
-
-        case rright:
-        c = (char *) rright_s;
-        break;
-
-        case lleft:
-        c = (char *) lleft_s;
-        break;
-
-        case leftdown:
-        c = (char *) leftdown_s;
-        break;
-
-        case downright:
-        c = (char *) downright_s;
-        break;
-
-        case rightup:
-        c = (char *) rightup_s;
-        break;
-
-        case upleft:
-        c = (char *) upleft_s;
-        break;
-    }
-
-    return c;
-}
-
-
-// 
 
 // Important one
 void printsnake()
 {
+    int l = snake.length;
     // Erase tail:
-    gameprint(snake.body[snake.length].location.Y, snake.body[snake.length].location.X, "  ");
-    gameprint(snake.body[snake.length-1].location.Y, snake.body[snake.length-1].location.X, "  ");
+    gameprint(snake.body[l].location.Y, snake.body[l].location.X, "  ");        l--;
+
+    // Print tail:
+    gameprint(snake.body[l].location.Y, snake.body[l].location.X, "\260\260");        l--;
+    gameprint(snake.body[l].location.Y, snake.body[l].location.X, "\261\261");        l--;
+    gameprint(snake.body[l].location.Y, snake.body[l].location.X, "\262\262");        l--;
+
+
+    // These are half tails
+    // for(int i = snake.length-1; i>snake.length -4; i--)
+    // {
+    //     gameprint(snake.body[i].location.Y, snake.body[i].location.X, bodyblock(doubledirectinof(snake.body[i].going, snake.body[i-1].going)));
+    // }
+
 
     // Print body:
-    for(int i = snake.length-1; i>0; i--)
+    for(int i = snake.length-4; i>0; i--)
     {
-        cursorloc(snake.body[i].location.Y+1,snake.body[i].location.X+1);
-        printf("\333\333");
+        gameprint(snake.body[i].location.Y, snake.body[i].location.X, "\333\333");
+        
+        // Half body mode
+        // gameprint(snake.body[i].location.Y, snake.body[i].location.X, bodyblock(doubledirectinof(snake.body[i].going, snake.body[i-1].going)));
     }
+
 
     // Print head:
     gameprint(snake.body[0].location.Y, snake.body[0].location.X, "oo");
+
+    cursorloc(0,30);
 }
 
+void displayinfos(struct makegameinfo g)
+{
+    // g.gametype;
+    // g.kb;
+    // g.level;
+    // g.score;
+    // g.soundon;
+    // g.direction;
+    locatecursor(1, 60);
+    printf("Level = %10d",g.level);
+    locatecursor(2,60);
+    printf("Score = %10d",g.score);
+    locatecursor(3,60);
+    printf("Snake Length = %3d", snake.length);
+
+    locatecursor(5,60);
+    switch(g.direction)
+    {
+        case up:
+        printf("Up   ");
+        break;
+
+        case down:
+        printf("Down ");
+        break;
+
+        case left:
+        printf("Left ");
+        break;
+
+        case right:
+        printf("Right");
+        break;        
+    }
+
+    locprint(6,61,"\332\304\277");
+    locprint(7,63,"\263\b\b\b\263");
+    locprint(8,59,"\332\304\305\304\305\304\277");
+    locprint(9,65,"\263\b\b\b\263\b\b\b\263\b\b\b\263");
+    locprint(10,59,"\300\304\301\304\301\304\331");
+    locatecursor(7,62);
+    if(g.kb.up)
+    printf("\030");
+    else
+    printf(" ");
+
+    locatecursor(9,62);
+    if(g.kb.down)
+    printf("\031");
+    else
+    printf(" ");
+
+    locatecursor(9,60);
+    if(g.kb.left)
+    printf("\021");
+    else
+    printf(" ");
+
+    locatecursor(9,64);
+    if(g.kb.right)
+    printf("\020");
+    else
+    printf(" ");
+}

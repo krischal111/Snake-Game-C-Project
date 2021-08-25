@@ -46,3 +46,4 @@ COORD randomcoord()
     c.Y = (short) (rand()%20);
     return c;
 }
+

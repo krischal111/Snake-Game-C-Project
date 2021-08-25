@@ -21,7 +21,7 @@ void printsnake();
 
 int main()
 {
-    // playmusicfrom(gameovermusic, gameovermusiclength);
+    // playtuneusing(gameovermusic, gameovermusiclength);
 
     srand(time(NULL));
     system("cls");

@@ -1,5 +1,5 @@
 
-void playmusicfrom(struct makesound * s,int l)
+void playtuneusing(struct makesound * s,int l)
 {
     for(int i = 0; i<l; i++)
     {

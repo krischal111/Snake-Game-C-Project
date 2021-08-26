@@ -9,10 +9,9 @@ char mainmenu[7][20] =
     "Exit"
 };
 
-char optionMenu[3][20] =
+char optionMenu[2][20] =
 {
-    "Sound on\\off",
-    "Redefine control",
+    "Sound on/off",
     "Control mode"
 };
 

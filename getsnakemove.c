@@ -21,6 +21,7 @@ void displayinfos(struct makegameinfo);
 enum direction getdirection(enum direction, struct keyboardinputs);
 void movesnake(enum direction);
 void fastness();
+void startgame(_Bool);
 
 void fastness()
 {
@@ -39,6 +40,23 @@ int main()
     snake.body[0].going = right;
 
     getsnaketomove();
+}
+
+void startgame(_Bool resumemode)
+{
+    system("cls");
+    if(resumemode)
+    {
+        getsnaketomove();
+    }
+    else
+    {
+        menudata.level = 9;
+        snake.length = 5;
+        snake.body[0].location = (COORD) {0,0};
+        snake.body[0].going    = right;
+    }
+
 }
 
 int getsnaketomove()

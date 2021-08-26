@@ -14,22 +14,29 @@ struct makemenudata menudata;
 
 int interactive(char *menutext,int size,int n,int *y)
 {
-    *y %= n;
-    ShowConsoleCursor(FALSE);
+    int starty, startx;
+    starty = 2; startx = 1;
+    *y %= n; 
     struct keyboardinputs kb;
-    menubegin:
-    gotoxy(0,1);
 
+menubegin:
+    ShowConsoleCursor(FALSE);    
+    gotoxy(0,starty);
     for(int i=0;i<n;i++ )
     {
+        printf("%*s",startx,"");        
         if(i == *y)
         {
-            printf(" ");
+            printf("--> ");
         }
-        printf(" %s   \n", menutext+i*size);
+        else
+        {
+            printf("    ");
+        }
+        printf(" %s   \n", (menutext+i*size));
     }
     ShowConsoleCursor(TRUE);
-    gotoxy(1,*y + 1);
+    gotoxy(startx+20,*y + starty);
 
     while(1)
     {
@@ -58,6 +65,7 @@ int interactive(char *menutext,int size,int n,int *y)
 
 int main()
 {
+    srand(time(NULL));
     int y=0,esc = 0;
 
     menudata.gamerunning = 0;
@@ -65,6 +73,7 @@ int main()
 startmain:
     {
         system("cls");
+        printf(" Main menu:");
         if(menudata.gamerunning)
         {
             esc = interactive(mainmenu[0],20,7,&y);
@@ -130,23 +139,27 @@ startmain:
 optionsmain:
 
     system("cls");
-    esc = interactive(optionMenu[0],20,3,&y);
+    printf(" Options:");
+    esc = interactive(optionMenu[0],20,2,&y);
     if(esc == 1)
     {
+        y = 2;
         goto startmain;
     }
 
     switch(y)
     {
     case 0:
+        y = menudata.options.soundon?0:1;
         goto soundoption;
         break;
 
     case 1:
-        goto redefineoption;
-        break;
+        // goto redefineoption;
+        // break;
 
     case 2:
+        y = menudata.options.AImode?1:0;
         goto AIoption;
         break;
 
@@ -156,9 +169,11 @@ optionsmain:
 
 soundoption:
     system("cls");
+    printf(" Sound on/off:");
     esc = interactive(soundMenu[0],20,2,&y);
     if(esc == 1)
     {
+        y=0;
         goto optionsmain;
     }
 
@@ -171,14 +186,18 @@ soundoption:
         menudata.options.soundon = FALSE;
         break;
     }
+
+    y=0;
     goto optionsmain;
 
 
 redefineoption:
     system("cls");
+    printf(" Redefine controls:");
     esc = interactive(redefineMenu[0],20,4,&y);
     if(esc == 1)
     {
+        y = 1;
         goto optionsmain;
     }
 
@@ -200,14 +219,18 @@ redefineoption:
         printf("\t\tRight");
         break;
     };
+
+    y=1;
     goto optionsmain;
 
 
 AIoption:
     system("cls");
+    printf(" Who controls the game:");
     esc = interactive(AIMenu[0],6,2,&y);
     if(esc == 1)
     {
+        y = 1;
         goto optionsmain;
     }
 
@@ -221,6 +244,8 @@ AIoption:
         menudata.options.AImode = TRUE;
         break;
     };
+
+    y = 1;
     goto optionsmain;
 
 

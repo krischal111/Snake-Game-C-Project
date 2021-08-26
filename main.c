@@ -41,6 +41,7 @@ menubegin:
     while(1)
     {
         Sleep(50);
+        rerun:
         kb = menuinput();
 
         if(!kb.nothing)
@@ -56,10 +57,18 @@ menubegin:
 
             if(kb.esc)
                 return 1;
-
             
+            if(kb.numpress)
+            {
+                if(kb.number<n)
+                    y = n+1;
+            }
+            else
+            {
+                goto rerun;
+            }
 
-        // Aavash, continue gara hai
+
 
             goto menubegin;
         }

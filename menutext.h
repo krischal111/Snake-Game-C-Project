@@ -56,7 +56,7 @@ char helpText[500] =
 " Use arrow keys or WASD to move the snake. Press <space> to pause the game an press <enter> to activate the powerup.\n"
 " To navigate through the menu, use WASD or arrow keys. Press <esc> key to go back in menu as well as game.\n"
 " Collect fruits to increase length. Boosts will speed up movement and also your score.\n"
-" Have fun!\n\m"
+" Have fun!\n\n"
 " "
 " Press enter to redirect to main menu.";
 

@@ -64,6 +64,7 @@ struct makegameelements
 
 struct ingameupdate
 {
+    _Bool gameover;
     int scoreincrease;
     int lengthincrease;
 };

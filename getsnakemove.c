@@ -22,6 +22,7 @@ enum direction getdirection(enum direction, struct keyboardinputs);
 void movesnake(enum direction);
 void fastness();
 void startgame(_Bool);
+struct gamedataupdates();
 
 void fastness()
 {

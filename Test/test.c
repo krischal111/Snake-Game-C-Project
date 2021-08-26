@@ -3,5 +3,5 @@
 
 int main()
 {
-   printf("sizeof(long) = %d", sizeof(long));
+   printf("sizeof(unsigned long long) = %d", sizeof(unsigned long long));
 }

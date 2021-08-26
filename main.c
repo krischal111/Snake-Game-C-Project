@@ -41,7 +41,7 @@ menubegin:
     while(1)
     {
         Sleep(50);
-        kb = gameinput(0);
+        kb = menuinput();
 
         if(!kb.nothing)
         {
@@ -56,6 +56,16 @@ menubegin:
 
             if(kb.esc)
                 return 1;
+
+            if(kb.one)
+                y=0;
+            
+            if(kb.two)
+                y=1;
+            
+            if(kb.three)
+                y=2;
+        // Aavash, continue gara hai
 
             goto menubegin;
         }

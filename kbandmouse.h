@@ -1,5 +1,6 @@
 struct keyboardinputs devinput();       // from developer or designer
 struct keyboardinputs gameinput(int);   // from gamer
+struct keyboardinputs menuinputs();  // at menu
 
 struct keyboardinputs devinput()
 {
@@ -65,4 +66,20 @@ struct keyboardinputs gameinput(int mode)
         }
         return input;
     }
+}
+
+struct keyboardinputs menuinput()
+{
+    struct keyboardinputs input;
+
+    input.esc   = (GetAsyncKeyState(VK_ESCAPE) & 0x01)  || (GetAsyncKeyState(VK_BACK) * 0x01);
+    input.up    = (GetAsyncKeyState(VK_UP) & 0x01)      || (GetAsyncKeyState(0x57) & 0x01); // W
+    input.down  = (GetAsyncKeyState(VK_DOWN) & 0x01)    || (GetAsyncKeyState(0x53) & 0x01); // S
+    input.right = (GetAsyncKeyState(VK_RIGHT) & 0x01)   || (GetAsyncKeyState(0x44) & 0x01); // D
+    input.left  = (GetAsyncKeyState(VK_LEFT) & 0x01)    || (GetAsyncKeyState(0x41) & 0x01); // A
+    input.enter = (GetAsyncKeyState(VK_RETURN) & 0x01);
+
+    input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.esc);
+
+    return input;
 }

@@ -30,21 +30,14 @@ void fastness()
 
 int main()
 {
-    ShowConsoleCursor(FALSE);
-    menudata.level = 9;
-    // playtuneusing(gameovermusic, gameovermusiclength);
     srand(time(NULL));
-    system("cls");
-    snake.length = 15;
-    snake.body[0].location = (COORD){0,0};
-    snake.body[0].going = right;
-
-    getsnaketomove();
+    startgame(FALSE);
 }
 
 void startgame(_Bool resumemode)
 {
     system("cls");
+    ShowConsoleCursor(FALSE);
     if(resumemode)
     {
         getsnaketomove();
@@ -55,8 +48,8 @@ void startgame(_Bool resumemode)
         snake.length = 5;
         snake.body[0].location = (COORD) {0,0};
         snake.body[0].going    = right;
+        getsnaketomove();
     }
-
 }
 
 int getsnaketomove()

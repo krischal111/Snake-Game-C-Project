@@ -14,6 +14,7 @@ struct makemenudata menudata;
 
 int interactive(char *menutext,int size,int n,int *y)
 {
+    *y %= n;
     ShowConsoleCursor(FALSE);
     struct keyboardinputs kb;
     menubegin:

@@ -287,13 +287,19 @@ highscoresmain:
 
 helpmain:
     system("cls");
-    esc = interactive(helpText,200,1,&y);
-    if(esc == 1)
+    printf(" %s",helpmsg);
+
+    while(1)
     {
-        goto startmain;
+        Sleep(50);
+        if(GetAsyncKeyState(VK_ESCAPE) & 0x01)
+            goto startmain;
+
     }
 
-    goto startmain;
+    
+
+    
 
 
 

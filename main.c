@@ -61,15 +61,15 @@ menubegin:
             if(kb.numpress)
             {
                 if(kb.number<n)
+                {
                     y = n+1;
+                }
+                else
+                {
+                    goto rerun;
+                }
             }
-            else
-            {
-                goto rerun;
-            }
-
-
-
+            
             goto menubegin;
         }
     }

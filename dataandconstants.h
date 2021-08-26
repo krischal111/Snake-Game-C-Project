@@ -104,7 +104,7 @@ const char * vertical_b    = "\272";
 const char * barrier_b     = "\262\262";
 const char * portal_b      = "[]";
 
-const char portal_list[5][3]  = {"[]", "{}", "()", "<>", "\363\362"};      // last one = ≤≥
+const char * portal_b_list[5]  = {"[]", "{}", "()", "<>", "\363\362"};      // last one = ≤≥
 
 const char * upright_s    = "\333\337";       //        █▀-->
 const char * rightdown_s  = "\337\333";       //          -->▀█

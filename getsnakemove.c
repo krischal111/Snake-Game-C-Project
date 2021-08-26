@@ -7,8 +7,7 @@
 char playgroundstr[20][20][3];              // 2 characters for each block // never wanna look back on this
 struct makeplayground playground;
 struct makesnake snake;
-
-
+struct makemenudata menudata;
 
 // Functions ####################################################
 #include "displayfuncs.h"
@@ -19,6 +18,8 @@ struct makesnake snake;
 int getsnaketomove();
 void printsnake();
 void displayinfos(struct makegameinfo);
+enum direction getdirection(enum direction, struct keyboardinputs);
+void movesnake(enum direction);
 
 int main()
 {
@@ -53,74 +54,19 @@ int getsnaketomove()
         // ############################################ controls human or AI mode
         kb=gameinput(0);
         
-        {                   // controls exit or pause of game
-        if(kb.esc)
-        {
-            break;
-        }
+        // controls exit or pause of game
+        if(kb.esc)        break;
         else if(kb.space)
-        {
         do
-            {
-                Sleep(100);
-                kb = gameinput(0);              // wait for human input when paused
-            }while(kb.nothing);
-        }
-        }
+        {   Sleep(100);
+            kb = gameinput(0);              // wait for human input when paused
+        }while(kb.nothing);
 
-        switch(snake.body[0].going)          // decide direction according to input
-        {
-            case right:
-            case left:
-            {
-                if(kb.down)
-                wheredoigo = down;
-                else if(kb.up)
-                wheredoigo = up;
-            }
-            break;
-            case up:
-            case down:
-            {
-                if(kb.right)
-                wheredoigo = right;
-                else if(kb.left)
-                wheredoigo = left;
-            }
-            break;
-        }
-
+        // decide direcction, and move snake
+        wheredoigo = getdirection(snake.body[0].going, kb);          
         //############################## spot for increasing/decreasing snake's length
-        // if(mod120counter%20 == 0)
-        // snake.length++;
 
-        // where whole body moves
-        for(int i = snake.length; i>0; i--)
-        {
-            snake.body[i] = snake.body[i-1];
-        }
-
-        // this moves the head to controlled direction
-        switch(wheredoigo)
-        {
-            case up:
-            snake.body[0].location.Y = mod(snake.body[0].location.Y-1,20);    // Decrements by 1 with modulo 20
-            break;
-
-            case down:
-            snake.body[0].location.Y = mod(snake.body[0].location.Y+1,20);    // Increments by 1 with modulo 20 (customcalc.h)
-            break;
-
-            case left:
-            snake.body[0].location.X = mod(snake.body[0].location.X-1,20);    // Comes from opposite end after entering from one
-            break;
-
-            case right:
-            snake.body[0].location.X = mod(snake.body[0].location.X+1,20);    // Comes from opposite end after entering from one
-            break;
-        }
-        snake.body[0].going = wheredoigo;
-
+        movesnake(wheredoigo);
         printsnake();
         
         // Increase score here;
@@ -145,6 +91,66 @@ int getsnaketomove()
         }
         */
     }
+    menudata.gamerunning = TRUE;
+}
+
+enum direction getdirection(enum direction currentdirection, struct keyboardinputs kb)
+{
+    enum direction d=currentdirection;
+
+    switch(currentdirection)          // decide direction according to input
+    {
+        case right:
+        case left:
+        {
+            if(kb.down)
+            d = down;
+            else if(kb.up)
+            d = up;
+        }
+        break;
+
+        case up:
+        case down:
+        {
+            if(kb.right)
+            d = right;
+            else if(kb.left)
+            d = left;
+        }
+        break;
+    }
+    return d;    
+}
+
+void movesnake(enum direction d)
+{
+    // where whole body moves
+    for(int i = snake.length; i>0; i--)
+    {
+        snake.body[i] = snake.body[i-1];
+    }
+
+    // this moves the head to controlled direction
+    switch(d)
+    {
+        case up:
+        decremods(&snake.body[0].location.Y, 20);    // Decrements by 1 with modulo 20                  
+        break;
+
+        case down:
+        incremods(&snake.body[0].location.Y, 20);    // Increments by 1 with modulo 20 (customcalc.h)   
+        break;
+
+        case left:
+        decremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one 
+        break;
+
+        case right:
+        incremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one 
+        break;
+    }
+    snake.body[0].going = d;
 }
 
 // Important one

@@ -3,6 +3,8 @@ int mod(int, int);
 int addmod(int, int, int);
 void incremod(int *, int);
 void decremod(int *, int);
+void incremods(short *, int);
+void decremods(short *, int);
 COORD randomcoordmod(int modulodivisor);
 COORD randomcoord();
 
@@ -30,6 +32,22 @@ void decremod(int *a, int d)
     while((*a)<0) (*a)+=d;
     (*a) %= d;
 }
+
+void incremods(short *a, int d)
+{
+    (*a)++;
+    while((*a)<0) (*a)+=d;
+    (*a) %= d;
+}
+
+void decremods(short *a, int d)
+{
+    (*a)--;
+    while((*a)<0) (*a)+=d;
+    (*a) %= d;
+}
+
+
 
 COORD randomcoordmod(int modulodivisor)
 {

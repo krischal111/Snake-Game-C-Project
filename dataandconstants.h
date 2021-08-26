@@ -79,12 +79,6 @@ struct makemenudata
     int gametype;
 };
 
-struct makesound
-{
-    int f;
-    int ms;
-};
-
 //###########################################################################
 //Constants
 const unsigned char softblock = 176, semisoftblock=177, semisolidblock=178, solidblock = 219;     // ░▒▓█
@@ -108,8 +102,9 @@ const char * bottomright_b = "\274 ";       //          "\274\272";
 const char * horizontal_b  = "\315\315";
 const char * vertical_b    = "\272";
 const char * barrier_b     = "\262\262";
+const char * portal_b      = "[]";
 
-const char * portal_b[5]   = {"[]", "{}", "()", "<>", "\363\362"};      // last one = ≤≥
+const char portal_list[5][3]  = {"[]", "{}", "()", "<>", "\363\362"};      // last one = ≤≥
 
 const char * upright_s    = "\333\337";       //        █▀-->
 const char * rightdown_s  = "\337\333";       //          -->▀█
@@ -126,43 +121,3 @@ const char * upleft_s     = "\334 ";          //           <--'▄ '
 
 char * helpmsg = "This is a snake game.";
 
-struct makesound gameovermusic[] = 
-{
-    (struct makesound) {200, 300},
-    (struct makesound) {220, 300},
-    (struct makesound) {280, 500},
-    (struct makesound) {225, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 500},
-    (struct makesound) {220, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {200, 700} 
-};
-int gameovermusiclength = 11;
-
-    // IF soundon THEN
-    //     SOUND 0, 0
-    //     SOUND 200, 3
-    //     SOUND 0, 0
-    //     SOUND 220, 3
-    //     SOUND 0, 0
-    //     SOUND 280, 5
-    //     SOUND 0, 0
-    //     SOUND 225, 3
-    //     SOUND 0, 0
-    //     SOUND 250, 3
-    //     SOUND 0, 0
-    //     SOUND 300, 5
-    //     SOUND 0, 0
-    //     SOUND 220, 3
-    //     SOUND 0, 0
-    //     SOUND 250, 3
-    //     SOUND 0, 0
-    //     SOUND 300, 3
-    //     SOUND 0, 0
-    //     SOUND 250, 3
-    //     SOUND 0, 0
-    //     SOUND 200, 7
-    //     SOUND 0, 0

@@ -40,7 +40,6 @@ struct keyboardinputs gameinput(int mode)
         input.left  = GetAsyncKeyState(VK_LEFT) & 0x01  || (GetAsyncKeyState(0x41) & 0x01); // A
         input.enter = GetAsyncKeyState(VK_RETURN) & 0x01;
 
-
         input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc);
 
         return input;

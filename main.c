@@ -57,14 +57,8 @@ menubegin:
             if(kb.esc)
                 return 1;
 
-            if(kb.one)
-                y=0;
             
-            if(kb.two)
-                y=1;
-            
-            if(kb.three)
-                y=2;
+
         // Aavash, continue gara hai
 
             goto menubegin;

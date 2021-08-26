@@ -1,66 +1,34 @@
-// ############################# struct available:
-struct makesound    {int freq;         int duration;                     };
-struct soundlist    {int length;    struct makesound * sound;   };
+typedef struct makesound {int f; /* frequency */     int t;  /*time*/} makesound;
+typedef struct soundlist {int length;    struct makesound * sound;   } soundlist;
+void playtuneusing(soundlist);
 
-// ############################# functions available:
-void playtuneusing(struct makesound *,int);
-
-
-void playtuneusing(struct makesound * s,int l)
+void playtuneusing(soundlist s)
 {
-    for(int i = 0; i<l; i++)
+    for(int i = 0; i < s.length; i++)
     {
-        Beep(s[i].freq, s[i].duration);
+        Beep(s.sound[i].f, s.sound[i].t);
     }
-    Beep(s[l-1].freq, s[l-1].duration);
-    Sleep(s[l-1].duration);
 }
 
-// void playtuneusing2(struct soundlist s)
-// {
-//     for(int i = 0; i < s.length; i++)
-//     {
-//         Beep(s.sound[i].f, s.sound[i].ms);
-//     }
-// }
-
-
-
 // Soundlist available:
-
-struct soundlist    gameovertune =
+makesound gmusic[] = 
 {
-    (int) 11,                           // length
-    (struct makesound *)                // pointer to the array of the struct
-    {
-    (struct makesound) {200, 300},
-    (struct makesound) {220, 300},
-    (struct makesound) {280, 500},
-    (struct makesound) {225, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 500},
-    (struct makesound) {220, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {200, 700} 
-    }
+    {200, 300},
+    {220, 300},
+    {280, 500},
+    {225, 300},
+    {250, 300},
+    {300, 500},
+    {220, 300},
+    {250, 300},
+    {300, 300},
+    {250, 300},
+    {200, 700} 
 };
+soundlist gameovertune = {   .length = 11,   .sound = gmusic  };
 
-
-struct makesound gameovermusic[] = 
+makesound intromusic[] =
 {
-    (struct makesound) {200, 300},
-    (struct makesound) {220, 300},
-    (struct makesound) {280, 500},
-    (struct makesound) {225, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 500},
-    (struct makesound) {220, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {300, 300},
-    (struct makesound) {250, 300},
-    (struct makesound) {200, 700} 
+    {1,2}
 };
-int gameovermusiclength = 11;
-
+soundlist introtune =   {   .length = 1  ,   .sound = intromusic};

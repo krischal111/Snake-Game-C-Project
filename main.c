@@ -287,12 +287,12 @@ highscoresmain:
 
 helpmain:
     system("cls");
-    printf(" %s",helpmsg);
+    printf("%s",helpText);
 
     while(1)
     {
         Sleep(50);
-        if(GetAsyncKeyState(VK_ESCAPE) & 0x01)
+        if((GetAsyncKeyState(VK_ESCAPE) & 0x01)||(GetAsyncKeyState(VK_RETURN) & 0x01))
             goto startmain;
 
     }

@@ -40,17 +40,8 @@ struct keyboardinputs gameinput(int mode)
         input.left  = GetAsyncKeyState(VK_LEFT) & 0x01  || (GetAsyncKeyState(0x41) & 0x01); // A
         input.enter = GetAsyncKeyState(VK_RETURN) & 0x01;
 
-        input.numpress = FALSE;
-        for(int i = 0; i<=9; i++)
-        {
-            if(!input.numpress && GetAsyncKeyState('0'+i) & 0x01)
-            {
-                input.numpress = TRUE;
-                input.number = i;
-            }
-        }
 
-        input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc||input.numpress);
+        input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc);
 
         return input;
     }
@@ -88,7 +79,17 @@ struct keyboardinputs menuinput()
     input.left  = (GetAsyncKeyState(VK_LEFT) & 0x01)    || (GetAsyncKeyState(0x41) & 0x01); // A
     input.enter = (GetAsyncKeyState(VK_RETURN) & 0x01);
 
-    input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.esc);
+    input.numpress = FALSE;
+    for(int i = 0; i<=9; i++)
+    {
+        if(!input.numpress && GetAsyncKeyState('0'+i) & 0x01)
+        {
+            input.numpress = TRUE;
+            input.number = i;
+        }
+    }
+
+    input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.esc||input.numpress);
 
     return input;
 }

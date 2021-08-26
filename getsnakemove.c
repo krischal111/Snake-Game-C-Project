@@ -65,12 +65,12 @@ int getsnaketomove()
 
         // Fastness:
         fastness();
-        // Sleep(100);
+
         incremod(&mod120counter,120);
 
         // ############################################ controls human or AI mode
         kb=gameinput(0);
-        
+    
         // controls exit or pause of game
         if(kb.esc)        break;
         else if(kb.space)
@@ -85,7 +85,7 @@ int getsnaketomove()
 
         movesnake(wheredoigo);
         printsnake();
-        
+
         // Increase score here;
         gameinfo.score = 0;
         gameinfo.kb = kb;
@@ -96,7 +96,6 @@ int getsnaketomove()
         displayinfos(gameinfo);
 
         cursorloc(0,30);
-
     }
     menudata.gamerunning = TRUE;
     ShowConsoleCursor(TRUE);

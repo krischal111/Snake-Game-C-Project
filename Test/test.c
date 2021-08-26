@@ -4,4 +4,5 @@
 int main()
 {
    printf("sizeof(unsigned long long) = %d", sizeof(unsigned long long));
+   printf("\n%d",'0');
 }

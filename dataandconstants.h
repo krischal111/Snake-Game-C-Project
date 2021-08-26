@@ -12,7 +12,8 @@ struct keyboardinputs
     _Bool up,down,left,right,space,enter,esc;
     _Bool nothing;
     _Bool B, P;
-    _Bool one, two, three, four, five, six, seven;
+    _Bool numpress;
+    int number;
 };
 
 struct makeplayground

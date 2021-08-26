@@ -255,3 +255,4 @@ void displayinfos(struct makegameinfo g)
     else
     printf(" ");
 }
+

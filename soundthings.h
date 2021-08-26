@@ -23,8 +23,9 @@ makesound gmusic[] =
     {250, 300},
     {300, 300},
     {250, 300},
-    {200, 700} 
+    {200, 700}
 };
+
 soundlist gameovertune = {   .length = 11,   .sound = gmusic  };
 
 makesound intromusic[] =

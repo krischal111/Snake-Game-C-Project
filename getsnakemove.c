@@ -20,9 +20,17 @@ void printsnake();
 void displayinfos(struct makegameinfo);
 enum direction getdirection(enum direction, struct keyboardinputs);
 void movesnake(enum direction);
+void fastness();
+
+void fastness()
+{
+    Sleep(900/menudata.level);
+}
 
 int main()
 {
+    ShowConsoleCursor(FALSE);
+    menudata.level = 9;
     // playtuneusing(gameovermusic, gameovermusiclength);
     srand(time(NULL));
     system("cls");
@@ -35,6 +43,7 @@ int main()
 
 int getsnaketomove()
 {
+    
     enum direction wheredoigo=snake.body[0].going;
     int offsetcounter=0;
     int mod120counter=0;
@@ -45,8 +54,9 @@ int getsnaketomove()
     while(1)
     {
 
-        //############################################ controls how fast snake moves
-        Sleep(100);
+        // Fastness:
+        fastness();
+        // Sleep(100);
 
         incremod(&offsetcounter,2);
         incremod(&mod120counter,120);
@@ -92,7 +102,10 @@ int getsnaketomove()
         */
     }
     menudata.gamerunning = TRUE;
+    ShowConsoleCursor(TRUE);
 }
+
+
 
 enum direction getdirection(enum direction currentdirection, struct keyboardinputs kb)
 {

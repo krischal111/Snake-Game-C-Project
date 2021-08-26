@@ -5,10 +5,7 @@ char playgroundstr[20][20][3];
 struct makeplayground playground;
 struct makemenudata menudata;
 
-
-
 #include"menutext.h"
-
 
 #include"kbandmouse.h"
 #include"customcalc.h"
@@ -17,11 +14,10 @@ struct makemenudata menudata;
 
 int interactive(char *menutext,int size,int n,int *y)
 {
+    ShowConsoleCursor(FALSE);
     struct keyboardinputs kb;
     menubegin:
     gotoxy(0,1);
-
-
 
     for(int i=0;i<n;i++ )
     {
@@ -31,6 +27,7 @@ int interactive(char *menutext,int size,int n,int *y)
         }
         printf(" %s   \n", menutext+i*size);
     }
+    ShowConsoleCursor(TRUE);
     gotoxy(1,*y + 1);
 
     while(1)

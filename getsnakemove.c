@@ -53,10 +53,8 @@ void startgame(_Bool resumemode)
 }
 
 int getsnaketomove()
-{
-    
+{ 
     enum direction wheredoigo=snake.body[0].going;
-    int offsetcounter=0;
     int mod120counter=0;
     struct keyboardinputs kb;           // stores all inputs allowed in this game
     struct makegameinfo gameinfo;
@@ -68,8 +66,6 @@ int getsnaketomove()
         // Fastness:
         fastness();
         // Sleep(100);
-
-        incremod(&offsetcounter,2);
         incremod(&mod120counter,120);
 
         // ############################################ controls human or AI mode
@@ -101,16 +97,6 @@ int getsnaketomove()
 
         cursorloc(0,30);
 
-        /*
-        switch(mod120counter%10)
-        {
-        case 0:
-        case 1:
-        case 3:
-        case 4:
-        printf("\b\bo~");
-        }
-        */
     }
     menudata.gamerunning = TRUE;
     ShowConsoleCursor(TRUE);

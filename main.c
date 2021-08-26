@@ -62,7 +62,7 @@ menubegin:
             {
                 if(kb.number<n)
                 {
-                    y = n+1;
+                    y = kb.number+1;
                 }
                 else
                 {

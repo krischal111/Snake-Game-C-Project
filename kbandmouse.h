@@ -81,7 +81,7 @@ struct keyboardinputs menuinput()
     input.numpress = FALSE;
     for(int i = 0; i<=9; i++)
     {
-        if(!input.numpress && GetAsyncKeyState('0'+i) & 0x01)
+        if(!input.numpress && GetAsyncKeyState((char)('0'+i)) & 0x01)
         {
             input.numpress = TRUE;
             input.number = i;

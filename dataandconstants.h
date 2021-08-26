@@ -62,6 +62,12 @@ struct makegameelements
     COORD superfoood;
 };
 
+struct ingameupdate
+{
+    int scoreincrease;
+    int lengthincrease;
+};
+
 struct scoredata
 {
     char name[30];

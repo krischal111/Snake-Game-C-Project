@@ -98,7 +98,7 @@ struct keyboardinputs menuinput()
 
     input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.esc||input.numpress);
 
-    if((GetAsyncKeyState(VK_LSHIFT) & 0x01) && (GetAsyncKeyState(VK_RSHIFT) & 0x01) && (GetAsyncKeyState(VK_HOME) & 0x01))
+    if((GetAsyncKeyState(VK_LSHIFT) & MSB_s) && (GetAsyncKeyState(VK_RSHIFT) & MSB_s) && (GetAsyncKeyState(VK_HOME) & MSB_s))
     exit(0);
 
     return input;

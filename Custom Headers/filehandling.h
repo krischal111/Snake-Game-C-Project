@@ -1,5 +1,5 @@
 void storeBestscorelist(struct scoredata, char *);      // to store provided best score in its place
-void readBestscorelist(char *);                         // to read best scores from file
+_Bool readBestscorelist(char *);                         // to read best scores from file
 void displayBestscorelist();                            // to display provided best scores
 
 void storeBestscorelist(struct scoredata mybestscore, char * filename)
@@ -27,7 +27,7 @@ void storeBestscorelist(struct scoredata mybestscore, char * filename)
     }
 }
 
-void readBestscorelist(char * filename)
+_Bool readBestscorelist(char * filename)
 {
     int endcheck = 0;
     struct scoredata score1;                    // Making a temporary score structure variable
@@ -41,7 +41,7 @@ void readBestscorelist(char * filename)
     FILE * myfile = fopen(filename,"rb");     // Open the bestscore file
     if(myfile==NULL)                                            // If unsuccessful, return without doing anything
     {
-        return;
+        return 0;
     }
     
     for(int i = 0; i<5; i++)
@@ -55,7 +55,7 @@ void readBestscorelist(char * filename)
     }
 
     fclose(myfile);                                             // Close the file and return
-    return;
+    return 1;
 }
 
 void displayBestscorelist()
@@ -80,14 +80,47 @@ void storemenudata(char * filename)
     return;
 }
 
-void readmenudata(char * filename)
+
+_Bool readmenudata(char * filename)
 {
     FILE * myfile = fopen(filename, "rb");
     {
         if(myfile == NULL)
-        return;
+        return 0;
     }
     fread(&menudata, sizeof(menudata),1,myfile);
     fclose(myfile);
-    return;
+    return 1;
+}
+
+void rek_mkdir(char *path) 
+{
+   char *sep = strrchr(path, '\\');
+   if(sep == NULL)
+   sep = strrchr(path,'/');
+   if(sep != NULL) 
+    {
+        *sep = 0;
+        rek_mkdir(path);
+        *sep = '/';
+    }
+   char * c = calloc(strlen(path)+10, sizeof(char));
+   strcat(c,"mkdir \"");
+   strcat(c,path);
+   strcat(c,"\"");
+   system(c);
+   free(c);
+}
+
+FILE *fopen_mkdir(char *path, char *mode) 
+{
+   char *sep = strrchr(path, '/');
+   if(sep) 
+    { 
+        char *path0 = strdup(path);
+        path0[ sep - path ] = 0;
+        rek_mkdir(path0);
+        free(path0);
+    }
+   return fopen(path,mode);
 }

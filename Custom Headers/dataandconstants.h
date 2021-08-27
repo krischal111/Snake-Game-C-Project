@@ -87,6 +87,7 @@ struct scoredata
  
 struct makemenudata
 {
+    //char name[30];
     struct options
     {
         _Bool soundon;
@@ -150,5 +151,6 @@ const char * food_f[] = {"\004 ", "\003 "} ,    *powerfood_f[]  = {"\376 ", "\03
 
 
 // Important Filenames:
+char * makefoldertext = "mkdir \"Saved Game Data\"";
 char * bestscorefilename = "Saved Game Data\\bestscore.binarydata";
 char * menudatafilename = "Saved Game Data\\menusettings.binarydata";

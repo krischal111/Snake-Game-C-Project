@@ -5,6 +5,7 @@
         "displayfuncs.h": "c",
         "customcalc.h": "c",
         "kbandmouse.h": "c",
-        "soundthings.h": "c"
+        "soundthings.h": "c",
+        "windows.h": "c"
     }
 }

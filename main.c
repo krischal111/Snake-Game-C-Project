@@ -17,7 +17,12 @@ int interactive(char *, int, int, int *);
 
 int main()
 {
-    readmenudata(menudatafilename);
+
+    if(!readmenudata(menudatafilename))
+    {
+        system(makefoldertext);
+        system("cls");
+    }
     readBestscorelist(bestscorefilename);
     if(menudata.options.soundon)
     playtuneusing(introtune);

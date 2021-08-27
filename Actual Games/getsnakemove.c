@@ -29,8 +29,6 @@ void startgame(_Bool resumemode)
     }
     else
     {
-        menudata.level = 9;
-
         // snake initilization
         snake.length = 1;
         snake.body[0].location = (COORD) {0,0};
@@ -60,7 +58,6 @@ void startgame(_Bool resumemode)
             .lengthincrease = 4,
             .scoreincrease = 0
         };
-
         score = getsnaketomove();
     }
 

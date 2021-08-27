@@ -1,19 +1,22 @@
 #include"Custom Headers\allheaders.h"           // Standard Header
 
 #include"Custom Headers\dataandconstants.h"     // Data type creation, and constants
-#include"Custom Headers\globalvariables.h"     // Global variables
+#include"Custom Headers\globalvariables.h"      // Global variables
 #include"Custom Headers\menutext.h"             // Menu texts
 
 #include"Custom Headers\kbandmouse.h"           // Important functions
 #include"Custom Headers\customcalc.h"
 #include"Custom Headers\displayfuncs.h"
 #include"Custom Headers\filehandling.h"
+
+#include"Actual Games\getsnakemove.c"           // Actual game
 void menu();
 int interactive(char *, int, int, int *);
 
 
 int main()
 {
+    menudata.level = 9;
     menu();
 }
 
@@ -121,13 +124,13 @@ startmain:
     switch(y)
     {
     case 0: //continue
-        // startgame(menudata.gamerunning);
+        startgame(menudata.gamerunning);
         break;
 
     case 1: //start game
-        // startgame(FALSE);
-        system("cls");
-        system("getsnakemove.exe");
+        startgame(FALSE);
+        // system("cls");
+        // system("getsnakemove.exe");
         break;
 
     case 2: //options
@@ -192,6 +195,7 @@ optionsmain:
 soundoption:
     system("cls");
     printf(" Sound on/off:");
+    y = menudata.options.soundon?0:1;
     esc = interactive(soundMenu[0],20,2,&y);
     if(esc == 1)
     {
@@ -249,6 +253,7 @@ redefineoption:
 AIoption:
     system("cls");
     printf(" Who controls the game:");
+    y = menudata.options.AImode?1:0;
     esc = interactive(AIMenu[0],6,2,&y);
     if(esc == 1)
     {
@@ -274,6 +279,7 @@ AIoption:
 levelsmain:
     system("cls");
     printf("Choose the level:");
+    y = menudata.level;
     esc = interactive(levelsMenu[0],10,10,&y);
     if(esc == 1)
     {   

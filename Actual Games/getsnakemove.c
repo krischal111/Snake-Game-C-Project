@@ -518,7 +518,7 @@ void gameover()
     {
         struct scoredata mybestscore;
         
-        
+        fflush(stdin);
         mybestscore.score = gameinfo.score;
         printf("\nCongrats!!! You set a new High Score. \nYour score = %d\n", gameinfo.score);
         printf("Please enter your good name: ");

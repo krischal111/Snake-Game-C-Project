@@ -69,7 +69,7 @@ menubegin:
                     goto rerun;
                 }
             }
-            
+           
             goto menubegin;
         }
     }
@@ -105,6 +105,7 @@ startmain:
         esc = interactive(confirmText[0],5,2,&y);
         if(esc == 1 || y != 0)
         {
+            y=6;        // position of level in startmain
             goto startmain;
         }
         else
@@ -115,11 +116,11 @@ startmain:
     switch(y)
     {
     case 0: //continue
-
+        // startgame(menudata.gamerunning);
         break;
 
     case 1: //start game
-
+        // startgame(FALSE);
         break;
 
     case 2: //options
@@ -170,6 +171,7 @@ optionsmain:
     case 1:
         // goto redefineoption;
         // break;
+        // This option has been removed, so absence of break; makes case 2 statements being executed
 
     case 2:
         y = menudata.options.AImode?1:0;
@@ -186,7 +188,7 @@ soundoption:
     esc = interactive(soundMenu[0],20,2,&y);
     if(esc == 1)
     {
-        y=0;
+        y=0;    // position of sound option in option menu
         goto optionsmain;
     }
 
@@ -200,7 +202,7 @@ soundoption:
         break;
     }
 
-    y=0;
+    y=2;        // position of sound option in option menu
     goto optionsmain;
 
 
@@ -243,7 +245,7 @@ AIoption:
     esc = interactive(AIMenu[0],6,2,&y);
     if(esc == 1)
     {
-        y = 1;
+        y = 1;      // position of AI option in option menu
         goto optionsmain;
     }
 
@@ -258,7 +260,7 @@ AIoption:
         break;
     };
 
-    y = 1;
+    y = 1;          // position of AI option in option menu
     goto optionsmain;
 
 
@@ -266,7 +268,8 @@ levelsmain:
     system("cls");
     esc = interactive(levelsMenu[0],10,10,&y);
     if(esc == 1)
-    {
+    {   
+        y=3;        // position of level in startmain
         goto startmain;
     }
 
@@ -275,14 +278,17 @@ levelsmain:
         menudata.level = y+1;
         goto startmain;
     }
+    y=3;            // position of level in startmain
     goto startmain;
 
 
 
 highscoresmain:
     system("cls");
-    goto startmain;
 
+
+    y=4;        // position of highscore option in startmain
+    goto startmain;
 
 
 helpmain:
@@ -292,20 +298,17 @@ helpmain:
     while(1)
     {
         Sleep(50);
-        // if((GetAsyncKeyState(VK_ESCAPE) & 0x01)||(GetAsyncKeyState(VK_RETURN) & 0x01))
-        if(menuinput().esc || menuinput().enter)
-        goto startmain;
+        struct keyboardinputs kb = menuinput();
+        if(kb.esc || kb.enter)
+        {
+            y=5;        // position of level in startmain
+            goto startmain;
+        }
     }
 
-    
 
-    
-
-
-
-
+the_end:
 return 0;
-
 }
 
 

@@ -86,7 +86,7 @@ char helpText[2000] =
 " Press <space> key to pause the game. Press <esc> key to go back to menu, where you can continue later.\n"
 " Collect fruits to increase length. Boosts will speed up movement and also score you more.\n"
 " Have fun!\n\n"
-" "
+
 " Info about the Snake Game:\n"
 " Snake game is the game of snake having adventures, in a location that exists on a flat torus universe.\n"
 " That means opposite sides of the map are connected, and when anything exits from one side, it enters from opposite side.\n"
@@ -101,10 +101,10 @@ char helpText[2000] =
 
 " About the Developers:\n"
 " This game was made by 4 students of Pulchowk Campus, IOE, Nepal, as a project for C programming in the first semester.\n"
-" Game Design        :  Krischak Khanal.\n"
+" Game Design        :  Krischal Khanal.\n"
 " Map Design         :  Sujan Basnet.\n"
 " Menu and UI Design :  Aavash Bhattarai, Krischal Khanal\n"
-" Documentation      :  "
+" Documentation      :  Manish Yadav, Aavash Bhattarai, Sujan Basnet, Krischal Khanal"
 " "
 
 "\n\n"

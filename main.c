@@ -1,15 +1,15 @@
-#include"allheaders.h"
+#include"Custom Headers\allheaders.h"
 
-#include"dataandconstants.h"
+#include"Custom Headers\dataandconstants.h"
 char playgroundstr[20][20][3];
 struct makeplayground playground;
 struct makemenudata menudata;
 
-#include"menutext.h"
+#include"Custom Headers\menutext.h"
 
-#include"kbandmouse.h"
-#include"customcalc.h"
-#include"displayfuncs.h"
+#include"Custom Headers\kbandmouse.h"
+#include"Custom Headers\customcalc.h"
+#include"Custom Headers\displayfuncs.h"
 
 
 int interactive(char *menutext,int size,int n,int *y)

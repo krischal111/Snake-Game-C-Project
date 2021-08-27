@@ -1,8 +1,8 @@
 // Header files
-#include "allheaders.h"
+#include "Custom Headers\allheaders.h"
 
 // Data (struct, enum and constants)
-#include "dataandconstants.h"
+#include "Custom Headers\dataandconstants.h"
 
 int mod120counter=0;
 char playgroundstr[20][20][3];              // 2 characters for each block // never wanna look back on this
@@ -15,10 +15,10 @@ struct makegameinfo gameinfo;
 
 
 // Functions ####################################################
-#include "displayfuncs.h"
-#include "customcalc.h"
-#include "kbandmouse.h"
-#include "soundthings.h"
+#include "Custom Headers\displayfuncs.h"
+#include "Custom Headers\customcalc.h"
+#include "Custom Headers\kbandmouse.h"
+#include "Custom Headers\soundthings.h"
 
 int getsnaketomove();
 void printsnake();

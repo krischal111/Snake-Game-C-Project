@@ -1,5 +1,5 @@
-#include "allheaders.h"
-#include "dataandconstants.h"
+#include "Custom Headers\allheaders.h"
+#include "Custom Headers\dataandconstants.h"
 
 
 char playgroundstr[20][20][3];              // 2 characters for each block // never wanna look back on this

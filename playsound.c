@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
-#include "soundthings.h"
+#include "Custom Headers\soundthings.h"
 
 int main()
 {

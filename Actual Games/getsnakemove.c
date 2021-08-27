@@ -18,6 +18,8 @@ void fastness()
 
 void startgame(_Bool resumemode)
 {
+    readBestscorelist(bestscorefilename);
+
     int s=0;
     int score = 0;
 
@@ -63,11 +65,11 @@ void startgame(_Bool resumemode)
 
     if(ingameupdate.gameover)
     {
-        menudata.gamerunning = FALSE;
+        gameisrunning = FALSE;
         gameover();
     }
 }
-
+ 
 int getsnaketomove()
 {
     enum direction  wheredoigo = snake.body[0].going;
@@ -122,9 +124,9 @@ int getsnaketomove()
         cursorloc(0,30);
     }
     if(ingameupdate.gameover)
-    menudata.gamerunning = FALSE;
+    gameisrunning = FALSE;
     else
-    menudata.gamerunning = TRUE;
+    gameisrunning = TRUE;
     ShowConsoleCursor(TRUE);
     return gameinfo.score;
 }
@@ -359,10 +361,14 @@ void gamedataupdates()
         if(coordcmp(gameelements.portal[i].start,snake.body[0].location))
         {
             snake.body[0].location = gameelements.portal[i].end;
+            if(menudata.options.soundon)
+            playtuneusing(portaltune);
         }
         else if(coordcmp(gameelements.portal[i].end,snake.body[0].location))
         {
             snake.body[0].location = gameelements.portal[i].start;
+            if(menudata.options.soundon)
+            playtuneusing(portaltune);
         }
     }
 
@@ -391,7 +397,12 @@ void gamedataupdates()
             gameelements.presenceofpowerfood = TRUE;
             gameelements.powerfoood = goodrandomcoord();
             gameelements.powerfoodduration = 40;
+            if(menudata.options.soundon)
+            ;
+            // playtuneusing(powerappeartune);
         }
+        if(menudata.options.soundon)
+        playtuneusing(foodeattune);
     }
 
     // no food duration increases with each move
@@ -416,6 +427,9 @@ void gamedataupdates()
 
             // After snake eats it, powerfood expires
             gameelements.presenceofpowerfood = FALSE;
+
+            if(menudata.options.soundon)
+            playtuneusing(powereattune);
         }
 
         // powerfood duration decreases, each time when powerfood is present and not eaten. 
@@ -475,7 +489,54 @@ COORD goodrandomcoord()
 
 void gameover()
 {
-    locprint(3,5,"Game Over");
-    printf("\nYour score was: %d",gameinfo.score);
     Sleep(1000);
+    if(menudata.options.soundon)
+    playtuneusing(gameovertune);
+    system("cls");
+    _Bool newhighscore = FALSE;
+    struct keyboardinputs kb;
+    locprint(3,5,"Game Over\n");
+
+    
+    for(int i = 0; (i<5) && !(newhighscore) ; i++)
+    {
+        newhighscore = (gameinfo.score > Best5Scores[i].score);
+    }
+    
+    if(!newhighscore)   // when no high score
+    {
+        printf("\n Your score was: %d",gameinfo.score);
+        for(int i = 0; i<50; i++)
+        {
+            Sleep(100);
+            kb = menuinput();
+            if(kb.esc || kb.enter)
+            break;
+        }
+    }
+    else
+    {
+        struct scoredata mybestscore;
+        
+        
+        mybestscore.score = gameinfo.score;
+        printf("\nCongrats!!! You set a new High Score. \nYour score = %d\n", gameinfo.score);
+        printf("Please enter your good name: ");
+        if(menudata.options.AImode)
+        {
+            strcpy(mybestscore.name,"Artificial Intelligence");
+            ShowConsoleCursor(TRUE);
+            for(int i = 0; i<strlen(mybestscore.name); i++)
+            {
+                printf("%c",*("Artificial Intelligence"+i));
+                Sleep(70);
+            }
+            printf("\n");
+        }
+        else
+        gets(mybestscore.name);
+
+        storeBestscorelist(mybestscore, bestscorefilename);
+    }
+    
 }

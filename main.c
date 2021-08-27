@@ -3,6 +3,7 @@
 #include"Custom Headers\dataandconstants.h"     // Data type creation, and constants
 #include"Custom Headers\globalvariables.h"      // Global variables
 #include"Custom Headers\menutext.h"             // Menu texts
+#include"Custom Headers\soundthings.h"
 
 #include"Custom Headers\kbandmouse.h"           // Important functions
 #include"Custom Headers\customcalc.h"
@@ -16,7 +17,10 @@ int interactive(char *, int, int, int *);
 
 int main()
 {
-    menudata.level = 9;
+    readmenudata(menudatafilename);
+    readBestscorelist(bestscorefilename);
+    if(menudata.options.soundon)
+    playtuneusing(introtune);
     menu();
 }
 
@@ -89,13 +93,13 @@ void menu()
     srand(time(NULL));
     int y=0,esc = 0;
 
-    menudata.gamerunning = 0;
+    gameisrunning = FALSE;
 
 startmain:
     {
         system("cls");
         printf(" Main menu:");
-        if(menudata.gamerunning)
+        if(gameisrunning)
         {
             esc = interactive(mainmenu[0],20,7,&y);
         }
@@ -124,7 +128,7 @@ startmain:
     switch(y)
     {
     case 0: //continue
-        startgame(menudata.gamerunning);
+        startgame(gameisrunning);
         break;
 
     case 1: //start game
@@ -207,9 +211,11 @@ soundoption:
     {
     case 0:
         menudata.options.soundon = TRUE;
+        storemenudata(menudatafilename);
         break;
     case 1:
         menudata.options.soundon = FALSE;
+        storemenudata(menudatafilename);
         break;
     }
 
@@ -265,10 +271,12 @@ AIoption:
     {
     case 0:
         menudata.options.AImode = FALSE;
+        storemenudata(menudatafilename);
         break;
 
     case 1:
         menudata.options.AImode = TRUE;
+        storemenudata(menudatafilename);
         break;
     };
 
@@ -290,6 +298,7 @@ levelsmain:
     if(y>=0 && y<10)
     {
         menudata.level = y+1;
+        storemenudata(menudatafilename);
         goto startmain;
     }
     y=3;            // position of level in startmain

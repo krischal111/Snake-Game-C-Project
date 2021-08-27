@@ -84,10 +84,9 @@ struct scoredata
     char name[30];
     unsigned int score;
 };
-
+ 
 struct makemenudata
 {
-    _Bool gamerunning;
     struct options
     {
         _Bool soundon;
@@ -151,5 +150,5 @@ const char * food_f[] = {"\004 ", "\003 "} ,    *powerfood_f[]  = {"\376 ", "\03
 
 
 // Important Filenames:
-char * bestscorefilename = "Saved Game Data\bestscore.binarydata";
-char * menudatafilename = "Saved Game Data \menusettings.binarydata";
+char * bestscorefilename = "Saved Game Data\\bestscore.binarydata";
+char * menudatafilename = "Saved Game Data\\menusettings.binarydata";

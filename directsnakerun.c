@@ -18,6 +18,7 @@
 int main()
 {
     readBestscorelist(bestscorefilename);
+    readmenudata(menudatafilename);
     srand(time(NULL));
     startgame(FALSE);
 }

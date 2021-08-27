@@ -60,7 +60,7 @@ void readBestscorelist(char * filename)
 }
 
 
-void displayBestscorelist(struct scoredata Best5Scores)
+void displayBestscorelist()
 {
     printf(" SN %-30s\t%10s","Names","Scores");             // Displaying the best scores
     for(int i = 0; i<5; i++)

@@ -115,7 +115,7 @@ int getsnaketomove()
         incremod(&mod120counter,120);
 
         // ############################################ controls human or AI mode
-        kb=gameinput(0);
+        kb=gameinput((menudata.options.AImode?1:0));
     
         // controls exit or pause of game
         if(kb.esc)        break;

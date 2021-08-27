@@ -34,6 +34,33 @@ soundlist gameovertune = {   .length = 15,   .sound = gmusic  };
 
 makesound intromusic[] =
 {
-    {1,2}
+    {750, 50},
+    {7500, 70},
+    {1950, 90},
+    {1550, 110},
+    {1150, 140},
+    {7500, 150},
+    {7500, 150},
+    {5500, 160},
+    {5500, 160},
+    {2500, 200},
+    {2500, 200},
+    {2500, 200},
+    {2000, 200},
+    {2000, 200},
+    {2100, 200},
 };
-soundlist introtune =   {   .length = 1  ,   .sound = intromusic};
+soundlist introtune =   {   .length = 15  ,   .sound = intromusic};
+
+makesound foodeatmusic[] =
+{
+    {2750, 150},
+};
+soundlist foodeattune =   {   .length = 1  ,   .sound = foodeatmusic};
+
+makesound powereatmusic[] =
+{
+    {1750, 90},
+    {1950, 50},
+};
+soundlist powereattune =   {   .length = 2  ,   .sound = powereatmusic};

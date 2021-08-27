@@ -17,6 +17,6 @@ int main()
     //LPSTR = CHAR *;
     //CHAR = char;
 
-    playtuneusing(gameovertune);
+    playtuneusing(powereattune);
     return 0;
 }

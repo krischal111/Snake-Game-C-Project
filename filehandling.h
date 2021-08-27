@@ -2,8 +2,6 @@ void readBestscorelist(struct scoredata *);             // to read best scores f
 void displayBestscorelist(struct scoredata *);          // to display provided best scores
 void storeBestscorelist(struct scoredata);              // to store provided best score in its place
 
-struct scoredata Best5scores;
-
 void storeBestscorelist(struct scoredata mybestscore)
 {
     int isscorenew=0;

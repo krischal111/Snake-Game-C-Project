@@ -3,7 +3,7 @@ void displayborder(int, int);
 void displayplayground(int);
 void gotoxy(int, int);
 void cursorloc(int, int);
-void gameprint(int, int, char *);
+void gameprint(int, int, const char *);
 void locprint(int, int, char *);
 void locatecursor(int, int);
 enum doubledirection doubledirectinof(enum direction, enum direction);
@@ -106,7 +106,7 @@ void cursorloc(int y, int x)
     gotoxy(2*x,y);
 }
 
-void gameprint(int y, int x, char *c)
+void gameprint(int y, int x, const char *c)
 {
     cursorloc(y+1,x+1);
     printf("%s",c);

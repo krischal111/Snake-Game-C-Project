@@ -6,6 +6,9 @@ struct keyboardinputs devinput()
 {
     struct keyboardinputs input;
 
+    if((GetAsyncKeyState(VK_LSHIFT) & 0x01) && (GetAsyncKeyState(VK_RSHIFT) & 0x01) && (GetAsyncKeyState(VK_HOME) & 0x01))
+    exit(0);
+    
     {
         input.up    = (GetAsyncKeyState(VK_UP) & 0x01);
         input.down  = GetAsyncKeyState(VK_DOWN) & 0x01;
@@ -31,6 +34,9 @@ struct keyboardinputs gameinput(int mode)
 
     input.space = GetAsyncKeyState(VK_SPACE) & 0x01;
     input.esc   = GetAsyncKeyState(VK_ESCAPE) & 0x01;
+
+    if((GetAsyncKeyState(VK_LSHIFT) & 0x01) && (GetAsyncKeyState(VK_RSHIFT) & 0x01) && (GetAsyncKeyState(VK_HOME) & 0x01))
+    exit(0);
 
     if(mode == 0)        // Human mode
     {
@@ -89,6 +95,9 @@ struct keyboardinputs menuinput()
     }
 
     input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.esc||input.numpress);
+
+    if((GetAsyncKeyState(VK_LSHIFT) & 0x01) && (GetAsyncKeyState(VK_RSHIFT) & 0x01) && (GetAsyncKeyState(VK_HOME) & 0x01))
+    exit(0);
 
     return input;
 }

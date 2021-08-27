@@ -4,10 +4,15 @@
 // Data (struct, enum and constants)
 #include "dataandconstants.h"
 
+int mod120counter=0;
 char playgroundstr[20][20][3];              // 2 characters for each block // never wanna look back on this
 struct makeplayground playground;
 struct makesnake snake;
 struct makemenudata menudata;
+struct makegameelements gameelements;
+struct makeingameupdate ingameupdate;
+struct makegameinfo gameinfo;
+
 
 // Functions ####################################################
 #include "displayfuncs.h"
@@ -22,7 +27,10 @@ enum direction getdirection(enum direction, struct keyboardinputs);
 void movesnake(enum direction);
 void fastness();
 void startgame(_Bool);
-struct gamedataupdates();
+void displaygameelements();
+void gamedataupdates();
+COORD goodrandomcoord();
+void gameover();
 
 void fastness()
 {
@@ -37,29 +45,54 @@ int main()
 
 void startgame(_Bool resumemode)
 {
+    int s=0;
+    int score = 0;
+
     system("cls");
     ShowConsoleCursor(FALSE);
     if(resumemode)
     {
-        getsnaketomove();
+        score = getsnaketomove();
     }
     else
     {
         menudata.level = 9;
+
+        // snake initilization
         snake.length = 5;
         snake.body[0].location = (COORD) {0,0};
         snake.body[0].going    = right;
-        getsnaketomove();
+
+        // ingamedata initialization
+        gameelements.barriercount = 0;
+
+        gameelements.foood = goodrandomcoord();
+        gameelements.nofoodduration = 0;
+
+        gameelements.portalcount = 0;
+
+        gameelements.presenceofpowerfood = TRUE;
+        gameelements.powerfoood = goodrandomcoord();
+        gameelements.powerfoodduration = 30;
+
+        gameelements.length5mod=1;
+        
+        score = getsnaketomove();
+    }
+
+    if(ingameupdate.gameover)
+    {
+        menudata.gamerunning = FALSE;
+        gameover();
     }
 }
 
 int getsnaketomove()
 { 
     enum direction wheredoigo=snake.body[0].going;
-    int mod120counter=0;
     struct keyboardinputs kb;           // stores all inputs allowed in this game
-    struct makegameinfo gameinfo;
 
+    ingameupdate.gameover = FALSE;
     displayborder(20,20);
     while(1)
     {
@@ -84,13 +117,20 @@ int getsnaketomove()
         wheredoigo = getdirection(snake.body[0].going, kb);          
         //############################## spot for increasing/decreasing snake's length
 
+
+
         movesnake(wheredoigo);
+        displaygameelements();
         printsnake();
 
+        gamedataupdates();
+
+        if(ingameupdate.gameover)
+        break;
+
         // Increase score here;
-        gameinfo.score = 0;
         gameinfo.kb = kb;
-        gameinfo.level = 5;
+        gameinfo.level = menudata.level;
         gameinfo.soundon = 1;
         gameinfo.gametype = 0;
         gameinfo.direction = wheredoigo;
@@ -98,8 +138,12 @@ int getsnaketomove()
 
         cursorloc(0,30);
     }
+    if(ingameupdate.gameover)
+    menudata.gamerunning = FALSE;
+    else
     menudata.gamerunning = TRUE;
     ShowConsoleCursor(TRUE);
+    return gameinfo.score;
 }
 
 
@@ -266,3 +310,181 @@ void displayinfos(struct makegameinfo g)
     printf(" ");
 }
 
+void displaygameelements()
+{
+    for(int i = 0; i<gameelements.portalcount; i++)
+    {
+        gameprint(gameelements.portal[i].start.Y, gameelements.portal[i].start.X,portal_b_list[i]);
+        gameprint(gameelements.portal[i].end.Y, gameelements.portal[i].end.X,portal_b_list[i]);
+    }
+
+    for(int i = 0; i<gameelements.barriercount; i++)
+    {
+        gameprint(gameelements.barrierblock[i].Y, gameelements.barrierblock[i].X, barrier_b);
+    }
+
+    gameprint(gameelements.foood.Y, gameelements.foood.X,food_f[mod120counter%2]);
+
+    if(gameelements.presenceofpowerfood)
+    {
+        gameprint(gameelements.powerfoood.Y, gameelements.powerfoood.X, powerfood_f[mod120counter%2]);
+    }
+    else
+    {
+        gameprint(gameelements.powerfoood.Y, gameelements.powerfoood.X, "  ");
+    }
+}
+
+void gamedataupdates()
+{
+    // Length increases one at a time.
+    if(ingameupdate.lengthincrease > 0)
+    {
+        snake.length++;
+        ingameupdate.lengthincrease--;
+    }
+    else if(ingameupdate.lengthincrease < 0)
+    {
+        snake.length--;
+        ingameupdate.lengthincrease++;
+
+        incremod(&gameelements.length5mod,5);
+        printf("%d",gameelements.length5mod);
+    }
+
+    // Score increases about half of level at a time.
+    int n = ingameupdate.scoreincrease;
+    if(ingameupdate.scoreincrease > 0)
+    {
+        n = (n<(menudata.level/2))?n:menudata.level/2;
+        gameinfo.score += n;;
+        ingameupdate.scoreincrease-=n;
+    }
+    else if(ingameupdate.scoreincrease < 0)
+    {
+        n = -n;
+        n = (n<(menudata.level/2))?n:menudata.level/2;
+        gameinfo.score -= n;;
+        ingameupdate.scoreincrease+=n;
+    }
+
+
+    // Check for portal, and if on there, teleport.
+    for(int i = 0; i<gameelements.portalcount; i++)
+    {   
+        if(coordcmp(gameelements.portal[i].start,snake.body[0].location))
+        {
+            snake.body[0].location = gameelements.portal[i].end;
+        }
+        else if(coordcmp(gameelements.portal[i].end,snake.body[0].location))
+        {
+            snake.body[0].location = gameelements.portal[i].start;
+        }
+    }
+
+    // check for barriers, and if on there, game is over
+    for(int i = 0; i<gameelements.barriercount; i++)
+    {
+        if(coordcmp(gameelements.barrierblock[i],snake.body[0].location))
+        {
+            ingameupdate.gameover = TRUE;
+        }
+    }
+
+    // check if on food, and if on there, score and length increase + new food spawns 
+    if(coordcmp(gameelements.foood,snake.body[0].location))
+    {
+        ingameupdate.scoreincrease += menudata.level;
+        ingameupdate.lengthincrease += 1;
+
+        gameelements.nofoodduration = 0;
+        gameelements.foood = goodrandomcoord();
+
+        if(gameelements.length5mod == 0)
+        {
+            gameelements.presenceofpowerfood = TRUE;
+            gameelements.powerfoood = goodrandomcoord();
+        }
+    }
+
+    // no food duration increases with each move
+    gameelements.nofoodduration++;
+
+    // if no food duration > 50, snake's length and score decreases, no food duration timer resets 
+    if(gameelements.nofoodduration>50)
+    {
+        ingameupdate.lengthincrease -=1;
+        ingameupdate.scoreincrease -= 2*menudata.level;
+    }
+
+    // powerfood spawns on every multiple of 5 increase in snake's length
+
+    // if powerfood present
+    if(gameelements.presenceofpowerfood)
+    {
+        // 1. check if snake is eating it, if yes score increase, and length can increase or decrease
+        if(coordcmp(gameelements.powerfoood,snake.body[0].location))
+        {
+            ingameupdate.scoreincrease += menudata.level * gameelements.powerfoodduration;
+            ingameupdate.lengthincrease++;
+
+            // After snake eats it, or time runs out, powerfood expires, spawning next time in new location
+            gameelements.powerfoodduration =31;
+        }
+
+        // if there is time, and powerfood is not eaten, time to eat decreases, if there is no time, powerfood expires
+        if(gameelements.powerfoodduration>0)
+        gameelements.powerfoodduration--;
+        else
+        gameelements.presenceofpowerfood = FALSE;
+    }
+
+    // Snake cannot eat itself, it causes game over
+    for(int i = 4; i<snake.length; i++)
+    if(coordcmp(snake.body[i].location,snake.body[0].location))
+    {
+        ingameupdate.gameover = TRUE;
+    }
+
+    // Snake can get so hungry, that it loses its own body parts, if it loses all his body, game is over.
+    if(snake.length == 0)
+    {
+        ingameupdate.gameover = TRUE;
+    }
+}
+
+COORD goodrandomcoord()
+{
+    COORD c;
+    _Bool doitagain = FALSE;
+
+    do
+    {
+        c = randomcoord();
+
+        for(int i = 0; i<gameelements.portalcount; i++)
+        {
+            doitagain = doitagain || coordcmp(gameelements.portal[i].start, c);
+            doitagain = doitagain || coordcmp(gameelements.portal[i].end  , c);
+        }
+
+        for(int i = 0; i<gameelements.barriercount; i++)
+        doitagain = doitagain || coordcmp(gameelements.barrierblock[i],c);
+
+        doitagain = doitagain || coordcmp(gameelements.foood,c);
+
+        doitagain = doitagain || coordcmp(gameelements.powerfoood,c);
+
+        for(int i = 0; i<snake.length; i++)
+        doitagain = doitagain || coordcmp(snake.body[i].location,c);
+
+    }while(doitagain);
+    return c;
+}
+
+void gameover()
+{
+    locprint(3,5,"Game Over");
+    printf("\nYour score was: %d",gameinfo.score);
+    Sleep(1000);
+}

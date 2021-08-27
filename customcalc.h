@@ -7,6 +7,8 @@ void incremods(short *, int);
 void decremods(short *, int);
 COORD randomcoordmod(int modulodivisor);
 COORD randomcoord();
+COORD coordfullcompare(COORD, COORD);
+_Bool coordcmp(COORD, COORD);
 
 
 int mod(int number, int divisor)
@@ -65,3 +67,32 @@ COORD randomcoord()
     return c;
 }
 
+COORD coordfullcompare(COORD p1, COORD p2)
+{
+    COORD result;
+    
+    if(p1.X<p2.X)
+    result.X = -1;
+    else if(p1.X == p2.X)
+    result.X = 0;
+    else
+    result.X = 1;
+
+    if(p1.Y<p2.Y)
+    result.Y = -1;
+    else if(p1.Y == p2.Y)
+    result.Y = 0;
+    else
+    result.Y = 1;
+
+    return result;
+}
+
+
+_Bool coordcmp(COORD p1, COORD p2)
+{
+    if((p1.X == p2.X) && (p1.Y == p2.Y))
+    return -1;
+    else
+    return 0;
+}

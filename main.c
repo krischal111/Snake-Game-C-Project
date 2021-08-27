@@ -33,7 +33,7 @@ menubegin:
         {
             printf("    ");
         }
-        printf(" %s   \n", (menutext+i*size));
+        printf("%d. %s   \n",i+1, (menutext+i*size));
     }
     ShowConsoleCursor(TRUE);
     gotoxy(startx+20,*y + starty);
@@ -60,9 +60,9 @@ menubegin:
             
             if(kb.numpress)
             {
-                if(kb.number<n)
-                {
-                    y = kb.number+1;
+                if(kb.number<=n)
+                {       // Remember, y is just a pointer, *y is the real value
+                    *y = kb.number-1;
                 }
                 else
                 {
@@ -292,9 +292,9 @@ helpmain:
     while(1)
     {
         Sleep(50);
-        if((GetAsyncKeyState(VK_ESCAPE) & 0x01)||(GetAsyncKeyState(VK_RETURN) & 0x01))
-            goto startmain;
-
+        // if((GetAsyncKeyState(VK_ESCAPE) & 0x01)||(GetAsyncKeyState(VK_RETURN) & 0x01))
+        if(menuinput().esc || menuinput().enter)
+        goto startmain;
     }
 
     

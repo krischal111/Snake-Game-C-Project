@@ -57,12 +57,19 @@ struct makegameelements
     COORD barrierblock[200];
 
     COORD foood;
+    int nofoodduration;
 
-    _Bool presenceofsuperfood;
-    COORD superfoood;
+    _Bool presenceofpowerfood;
+    COORD powerfoood;
+    int powerfoodduration;
+
+    _Bool powerupsavailable;
+    _Bool powerupson;
+
+    int length5mod;
 };
 
-struct ingameupdate
+struct makeingameupdate
 {
     _Bool gameover;
     int scoreincrease;
@@ -124,8 +131,7 @@ const char * uup_s = "\333 ",       * ddown_s = " \333";        // '█ '  ' █
 
 const char * leftdown_s   = " \334";          //          ' ▄'<--
 const char * downright_s  = " \337";          //          ' ▀'-->
-const char * rightup_s    = "\337 ";           //           -->'▀ '
+const char * rightup_s    = "\337 ";          //           -->'▀ '
 const char * upleft_s     = "\334 ";          //           <--'▄ '
 
-char * helpmsg = "This is a snake game.";
-
+const char * food_f[] = {"\004 ", "\003 "} ,    *powerfood_f[]  = {"\376 ", "\036 "};      //♦,♥ and ■,▲

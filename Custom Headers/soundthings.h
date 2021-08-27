@@ -22,37 +22,26 @@ makesound gmusic[] =
     {750, 150},
     {750, 150},
     {550, 160},
-    {550, 160},
+    {500, 160},
     {250, 200},
-    {250, 200},
-    {250, 200},
-    {200, 200},
     {200, 200},
     {100, 600},
 };
 
-soundlist gameovertune = {   .length = 15,   .sound = gmusic  };
+soundlist gameovertune = {   .length = 12,   .sound = gmusic  };
 
 //Game_start
 makesound intromusic[] =
 {
-    {750, 50},
-    {7500, 70},
+    {1150, 50},
+    {1500, 70},
     {1950, 90},
     {1550, 110},
     {1150, 140},
-    {7500, 150},
-    {7500, 150},
-    {5500, 160},
-    {5500, 160},
-    {2500, 200},
-    {2500, 200},
-    {2500, 200},
-    {2000, 200},
-    {2000, 200},
-    {2100, 200},
+    {1500, 150},
+    {1150, 200},
 };
-soundlist introtune =   {   .length = 15  ,   .sound = intromusic};
+soundlist introtune =   {   .length = 7  ,   .sound = intromusic};
 
 //Normal_food_eaten
 makesound foodeatmusic[] =

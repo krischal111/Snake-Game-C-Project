@@ -97,6 +97,11 @@ struct makemenudata
     int gametype;
 };
 
+struct makehackmode
+{
+    _Bool enablegameover;
+};
+
 //###########################################################################
 //Numeric Constants
 const unsigned short MSB_LSB_s   = (1<< (sizeof(short)*8-1))+1 ;
@@ -143,3 +148,7 @@ const char * rightup_s    = "\337 ";          //           -->'▀ '
 const char * upleft_s     = "\334 ";          //           <--'▄ '
 
 const char * food_f[] = {"\004 ", "\003 "} ,    *powerfood_f[]  = {"\376 ", "\036 "};      //♦,♥ and ■,▲
+
+
+// Important Filenames:
+char * bestscorefilename = "Saved Game Data\bestscore.binarydata";

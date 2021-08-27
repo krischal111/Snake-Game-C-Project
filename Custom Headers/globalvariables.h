@@ -11,5 +11,8 @@ struct makegameinfo gameinfo;
 char playgroundstr[20][20][3];          // Display.h
 struct makeplayground playground;
 
-
+struct makehackmode hackmode =
+{
+    .enablegameover = 1
+};
 

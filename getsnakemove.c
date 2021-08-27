@@ -394,6 +394,7 @@ void gamedataupdates()
     {
         if(coordcmp(gameelements.barrierblock[i],snake.body[0].location))
         {
+            if(hackmode.enablegameover)
             ingameupdate.gameover = TRUE;
         }
     }
@@ -419,16 +420,12 @@ void gamedataupdates()
     // no food duration increases with each move
     gameelements.nofoodduration++;
 
-<<<<<<< HEAD
-    // if no food duration > 100, snake's length and score decreases, no food duration timer resets 
+    // if no food duration > 100, 1. snake's length and 2. score decreases, 3. no food duration timer resets 
     if(gameelements.nofoodduration>100)
-=======
-    // if no food duration > 50, snake's length and score decreases, no food duration timer resets
-    if(gameelements.nofoodduration>50)
->>>>>>> acd6f84ee32cbf00f561b64627018136d6fce9bf
     {
         ingameupdate.lengthincrease--;
         ingameupdate.scoreincrease -= 2*menudata.level;
+        gameelements.nofoodduration = 0;
     }
 
     // if powerfood present
@@ -456,12 +453,14 @@ void gamedataupdates()
     for(int i = 4; i<snake.length; i++)
     if(coordcmp(snake.body[i].location,snake.body[0].location))
     {
+        if( hackmode.enablegameover)
         ingameupdate.gameover = TRUE;
     }
 
     // Snake can get so hungry, that it loses its own body parts, if it loses all his body, game is over.
     if(snake.length == 0)
     {
+        if( hackmode.enablegameover)
         ingameupdate.gameover = TRUE;
     }
 }

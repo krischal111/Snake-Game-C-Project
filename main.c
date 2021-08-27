@@ -1,16 +1,21 @@
-#include"Custom Headers\allheaders.h"
+#include"Custom Headers\allheaders.h"           // Standard Header
 
-#include"Custom Headers\dataandconstants.h"
-char playgroundstr[20][20][3];
-struct makeplayground playground;
-struct makemenudata menudata;
+#include"Custom Headers\dataandconstants.h"     // Data type creation, and constants
+#include"Custom Headers\globalvariables.h"     // Global variables
+#include"Custom Headers\menutext.h"             // Menu texts
 
-#include"Custom Headers\menutext.h"
-
-#include"Custom Headers\kbandmouse.h"
+#include"Custom Headers\kbandmouse.h"           // Important functions
 #include"Custom Headers\customcalc.h"
 #include"Custom Headers\displayfuncs.h"
+#include"Custom Headers\filehandling.h"
+void menu();
+int interactive(char *, int, int, int *);
 
+
+int main()
+{
+    menu();
+}
 
 int interactive(char *menutext,int size,int n,int *y)
 {
@@ -76,7 +81,7 @@ menubegin:
 }
 
 
-int main()
+void menu()
 {
     srand(time(NULL));
     int y=0,esc = 0;
@@ -105,11 +110,11 @@ startmain:
         esc = interactive(confirmText[0],5,2,&y);
         if(esc == 1 || y != 0)
         {
-            y=6;        // position of level in startmain
+            y=6;        // position of Exit game in Main menu
             goto startmain;
         }
         else
-            exit(0);
+            goto the_end;
 
     }
 
@@ -268,6 +273,7 @@ AIoption:
 
 levelsmain:
     system("cls");
+    printf("Choose the level:");
     esc = interactive(levelsMenu[0],10,10,&y);
     if(esc == 1)
     {   
@@ -287,7 +293,19 @@ levelsmain:
 
 highscoresmain:
     system("cls");
+    readBestscorelist(bestscorefilename);
+    displayBestscorelist();
 
+    while(1)
+    {
+        Sleep(50);
+        struct keyboardinputs kb = menuinput();
+        if(kb.esc || kb.enter)
+        {
+            y=4;        // position of level in startmain
+            goto startmain;
+        }
+    }
 
     y=4;        // position of highscore option in startmain
     goto startmain;
@@ -312,8 +330,3 @@ helpmain:
 the_end:
 return 0;
 }
-
-
-
-
-

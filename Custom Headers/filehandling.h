@@ -41,7 +41,6 @@ void readBestscorelist(char * filename)
     FILE * myfile = fopen(filename,"rb");     // Open the bestscore file
     if(myfile==NULL)                                            // If unsuccessful, return without doing anything
     {
-        fclose(myfile);
         return;
     }
     
@@ -55,10 +54,9 @@ void readBestscorelist(char * filename)
         Best5Scores[i]=score1;
     }
 
-    fclose(myfile);                                             // Close the file and reaturn
+    fclose(myfile);                                             // Close the file and return
     return;
 }
-
 
 void displayBestscorelist()
 {
@@ -70,3 +68,26 @@ void displayBestscorelist()
     return;
 }
 
+void storemenudata(char * filename)
+{
+    FILE * myfile = fopen(filename,"wb");
+    {
+    if(myfile == NULL)
+    return;
+    }
+    fwrite(&menudata, sizeof(menudata),1,myfile);
+    fclose(myfile);
+    return;
+}
+
+void readmenudata(char * filename)
+{
+    FILE * myfile = fopen(filename, "rb");
+    {
+        if(myfile == NULL)
+        return;
+    }
+    fread(&menudata, sizeof(menudata),1,myfile);
+    fclose(myfile);
+    return;
+}

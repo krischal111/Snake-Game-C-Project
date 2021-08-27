@@ -30,6 +30,7 @@ void displaygameelements();
 void gamedataupdates();
 COORD goodrandomcoord();
 void gameover();
+void lengthandscoreupdate();
 
 void fastness()
 {
@@ -128,6 +129,7 @@ int getsnaketomove()
         wheredoigo = getdirection(snake.body[0].going, kb);          
         //############################## spot for increasing/decreasing snake's length
 
+        lengthandscoreupdate();
         movesnake(wheredoigo);
         displaygameelements();
         printsnake();
@@ -157,7 +159,40 @@ int getsnaketomove()
     return gameinfo.score;
 }
 
+void lengthandscoreupdate()
+{
+    int l = ingameupdate.lengthincrease;
+    int s = ingameupdate.scoreincrease;
 
+    int scorechange = menudata.level / 2;
+
+    if(l<0)     // if length needs to be decreased
+    {
+        snake.length--;
+        l++;        // after length decreases, the negative value of length increased increases towards positive
+    }
+    else if(l>0)
+    {
+        snake.length++;
+        l--;
+    }
+
+    if(s<0)
+    {
+        scorechange      = (-s)<scorechange?(-s):scorechange;    // if score is to be decrease, it decreases by smaller of |s| or |scorechange|
+        gameinfo.score  -= scorechange;
+        s               += scorechange;
+    }
+    else if(s>0)
+    {
+        scorechange      = s<scorechange?s:scorechange;
+        gameinfo.score  += scorechange;
+        s               -= scorechange;
+    }
+
+    ingameupdate.lengthincrease = l;
+    ingameupdate.scoreincrease  = s;
+}
 
 enum direction getdirection(enum direction currentdirection, struct keyboardinputs kb)
 {
@@ -348,38 +383,6 @@ void displaygameelements()
 
 void gamedataupdates()
 {
-    // Length increases one at a time.
-    if(ingameupdate.lengthincrease > 0)
-    {
-        snake.length++;
-        ingameupdate.lengthincrease--;
-    }
-    else if(ingameupdate.lengthincrease < 0)
-    {
-        snake.length--;
-        ingameupdate.lengthincrease++;
-
-        incremod(&gameelements.length5mod,5);
-        printf("%d",gameelements.length5mod);
-    }
-
-    // Score increases about half of level at a time.
-    int n = ingameupdate.scoreincrease;
-    if(ingameupdate.scoreincrease > 0)
-    {
-        n = (n<(menudata.level/2))?n:menudata.level/2;
-        gameinfo.score += n;;
-        ingameupdate.scoreincrease-=n;
-    }
-    else if(ingameupdate.scoreincrease < 0)
-    {
-        n = -n;
-        n = (n<(menudata.level/2))?n:menudata.level/2;
-        gameinfo.score -= n;;
-        ingameupdate.scoreincrease+=n;
-    }
-
-
     // Check for portal, and if on there, teleport.
     for(int i = 0; i<gameelements.portalcount; i++)
     {   
@@ -407,46 +410,47 @@ void gamedataupdates()
     {
         ingameupdate.scoreincrease += menudata.level;
         ingameupdate.lengthincrease += 1;
+        incremod(&gameelements.eat50counter,50);
 
         gameelements.nofoodduration = 0;
         gameelements.foood = goodrandomcoord();
 
-        if(gameelements.length5mod == 0)
-        {
+        if(gameelements.eat50counter %5 == 0)
+        {   // powerfood generates only when normol food is eaten + once in 5 periodically
             gameelements.presenceofpowerfood = TRUE;
             gameelements.powerfoood = goodrandomcoord();
+            gameelements.powerfoodduration = 40;
         }
     }
 
     // no food duration increases with each move
     gameelements.nofoodduration++;
 
-    // if no food duration > 50, snake's length and score decreases, no food duration timer resets 
-    if(gameelements.nofoodduration>50)
+    // if no food duration > 100, snake's length and score decreases, no food duration timer resets 
+    if(gameelements.nofoodduration>100)
     {
-        ingameupdate.lengthincrease -=1;
+        ingameupdate.lengthincrease--;
         ingameupdate.scoreincrease -= 2*menudata.level;
     }
-
-    // powerfood spawns on every multiple of 5 increase in snake's length
 
     // if powerfood present
     if(gameelements.presenceofpowerfood)
     {
-        // 1. check if snake is eating it, if yes score increase, and length can increase or decrease
+        // 1. check if snake is eating it, if yes score increase, and length increases
         if(coordcmp(gameelements.powerfoood,snake.body[0].location))
         {
             ingameupdate.scoreincrease += menudata.level * gameelements.powerfoodduration;
             ingameupdate.lengthincrease++;
 
-            // After snake eats it, or time runs out, powerfood expires, spawning next time in new location
-            gameelements.powerfoodduration =31;
+            // After snake eats it, powerfood expires
+            gameelements.presenceofpowerfood = FALSE;
         }
 
-        // if there is time, and powerfood is not eaten, time to eat decreases, if there is no time, powerfood expires
-        if(gameelements.powerfoodduration>0)
+        // powerfood duration decreases, each time when powerfood is present and not eaten. 
         gameelements.powerfoodduration--;
-        else
+
+        // powerfood expires when not eaten in time.
+        if(gameelements.powerfoodduration<=0)
         gameelements.presenceofpowerfood = FALSE;
     }
 
@@ -467,10 +471,11 @@ void gamedataupdates()
 COORD goodrandomcoord()
 {
     COORD c;
-    _Bool doitagain = FALSE;
+    _Bool doitagain;
 
     do
     {
+        doitagain = FALSE;      // DOITAGAIN STARTS WITH FALSE ON EACH ITERATION REMEMBER THAT
         c = randomcoord();
 
         for(int i = 0; i<gameelements.portalcount; i++)
@@ -489,6 +494,7 @@ COORD goodrandomcoord()
         for(int i = 0; i<snake.length; i++)
         doitagain = doitagain || coordcmp(snake.body[i].location,c);
 
+    // but when random coordinate matches with anything else, doitagain becomes true, causeing loop to DO IT AGAIN
     }while(doitagain);
     return c;
 }

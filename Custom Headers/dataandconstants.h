@@ -34,7 +34,7 @@ struct makeportal
 struct makesnake
 {
     int length;
-    struct 
+    struct bodypart
     {
        COORD location;
        enum direction going;

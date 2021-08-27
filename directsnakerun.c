@@ -3,7 +3,7 @@
 
 // Data (struct, enum and constants)
 #include "Custom Headers\dataandconstants.h"
-
+// Data (global variables)
 #include "Custom Headers\globalvariables.h"
 
 // Functions ####################################################
@@ -11,11 +11,13 @@
 #include "Custom Headers\customcalc.h"
 #include "Custom Headers\kbandmouse.h"
 #include "Custom Headers\soundthings.h"
+#include "Custom Headers\filehandling.h"
 
 #include "Actual Games\getsnakemove.c"
 
 int main()
 {
+    readBestscorelist(bestscorefilename);
     srand(time(NULL));
     startgame(FALSE);
 }

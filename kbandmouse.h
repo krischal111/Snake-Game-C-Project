@@ -19,7 +19,9 @@ struct keyboardinputs devinput()
         input.esc   = GetAsyncKeyState(VK_ESCAPE) & 0x01;
         input.B     = GetAsyncKeyState(0x42) & 0x01;        // B = 0x42 = ASCII 66
         input.P     = GetAsyncKeyState(0x50) & 0x01;        // P = 0x50 = ASCII 80
-        
+
+
+
         input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc||input.B||input.P);
         return input;
     }
@@ -87,8 +89,8 @@ struct keyboardinputs menuinput()
     input.numpress = FALSE;
     for(int i = 0; i<=9; i++)
     {
-        if(!input.numpress && GetAsyncKeyState((char)('0'+i)) & 0x01)
-        {
+        if(!input.numpress && ((GetAsyncKeyState('0'+i) & 0x01) || (GetAsyncKeyState(VK_NUMPAD0 + i) & 0x01)))
+        {       // if input from number keys or numpad number keys
             input.numpress = TRUE;
             input.number = i;
         }

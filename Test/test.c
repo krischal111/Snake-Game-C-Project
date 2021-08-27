@@ -3,6 +3,7 @@
 
 int main()
 {
-   printf("sizeof(unsigned long long) = %d", sizeof(unsigned long long));
+   printf("sizeof(short) = %d", sizeof(short));
+   printf("\nMSB and LSB are set = %x",(int)((short)( (1<< (sizeof(short)*8-1))+1 )) );
    printf("\n%d",'0');
 }

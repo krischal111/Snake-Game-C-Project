@@ -9,6 +9,9 @@ enum blocktype {empty, barrier, snakebody, food, powerfood, portal};
 // Structs
 struct keyboardinputs
 {
+    _Bool rotatemode;
+    _Bool crotate;
+    _Bool acrotate;
     _Bool up,down,left,right,space,enter,esc;
     _Bool nothing;
     _Bool B, P;
@@ -95,7 +98,12 @@ struct makemenudata
 };
 
 //###########################################################################
-//Constants
+//Numeric Constants
+const unsigned short MSB_LSB_s   = (1<< (sizeof(short)*8-1))+1 ;
+const unsigned short MSB_s       =  1<< (sizeof(short)*8-1)    ;
+const unsigned short LSB_s       =                           1 ;
+
+// String constants
 const unsigned char softblock = 176, semisoftblock=177, semisolidblock=178, solidblock = 219;     // ░▒▓█
 const unsigned char horizontal2border = 205,  vertical2border  = 186;                             //  ═ ║
 const unsigned char topleft2border    = 201,  topmid2border    = 203,   topright2border     = 187;//  ╔╦╗

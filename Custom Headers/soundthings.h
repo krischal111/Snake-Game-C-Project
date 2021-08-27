@@ -1,6 +1,5 @@
 typedef struct makesound {int f; /* frequency */     int t;  /*time*/} makesound;
 typedef struct soundlist {int length;    struct makesound * sound;   } soundlist;
-void playtuneusing(soundlist);
 
 void playtuneusing(soundlist s)
 {
@@ -11,6 +10,8 @@ void playtuneusing(soundlist s)
 }
 
 // Soundlist available:
+
+//Game_over
 makesound gmusic[] =
 {
     {2750, 50},
@@ -32,6 +33,7 @@ makesound gmusic[] =
 
 soundlist gameovertune = {   .length = 15,   .sound = gmusic  };
 
+//Game_start
 makesound intromusic[] =
 {
     {750, 50},
@@ -52,12 +54,14 @@ makesound intromusic[] =
 };
 soundlist introtune =   {   .length = 15  ,   .sound = intromusic};
 
+//Normal_food_eaten
 makesound foodeatmusic[] =
 {
     {2750, 150},
 };
 soundlist foodeattune =   {   .length = 1  ,   .sound = foodeatmusic};
 
+//Powerup_eaten
 makesound powereatmusic[] =
 {
     {1750, 90},

@@ -10,7 +10,7 @@
 #include"Custom Headers\displayfuncs.h"
 #include"Custom Headers\filehandling.h"
 
-#include"Actual Games\getsnakemove.c"           // Actual game
+#include"Actual Games\getsnakemove.c"           // Actual Game
 void menu();
 int interactive(char *, int, int, int *);
 

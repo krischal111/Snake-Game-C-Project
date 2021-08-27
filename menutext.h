@@ -87,7 +87,7 @@ char helpText[2000] =
 " Collect fruits to increase length. Boosts will speed up movement and also score you more.\n"
 " Have fun!\n\n"
 " "
-" Info about the Snake Game:"
+" Info about the Snake Game:\n"
 " Snake game is the game of snake having adventures, in a location that exists on a flat torus universe.\n"
 " That means opposite sides of the map are connected, and when anything exits from one side, it enters from opposite side.\n"
 " Snake can move in any four directions. Snake cannot eat itself, because it dies from its own venom \n"
@@ -96,7 +96,7 @@ char helpText[2000] =
 " If snake doesn't eat for long time, it start to lose unnecessary body parts to save energy, starting from tail.\n"
 " If snakes loses all its body parts, it dies, and the game is over.\n\n"
 
-" In campaign mode, snake has to eat required number of foods, and gain enough energy to open portal to new map."
+" In campaign mode, snake has to eat required number of foods, and gain enough energy to open portal to new map.\n"
 " Once all maps are completed, game concludes.\n\n"
 
 " About the Developers:\n"

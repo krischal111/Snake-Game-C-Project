@@ -13,7 +13,6 @@ struct makegameelements gameelements;
 struct makeingameupdate ingameupdate;
 struct makegameinfo gameinfo;
 
-
 // Functions ####################################################
 #include "Custom Headers\displayfuncs.h"
 #include "Custom Headers\customcalc.h"
@@ -129,8 +128,6 @@ int getsnaketomove()
         wheredoigo = getdirection(snake.body[0].going, kb);          
         //############################## spot for increasing/decreasing snake's length
 
-
-
         movesnake(wheredoigo);
         displaygameelements();
         printsnake();
@@ -141,11 +138,13 @@ int getsnaketomove()
         break;
 
         // Increase score here;
+
         gameinfo.kb = kb;
         gameinfo.level = menudata.level;
         gameinfo.soundon = 1;
         gameinfo.gametype = 0;
         gameinfo.direction = wheredoigo;
+        gameinfo.gametype = menudata.gametype;
         displayinfos(gameinfo);
 
         cursorloc(0,30);

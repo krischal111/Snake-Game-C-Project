@@ -4,14 +4,7 @@
 // Data (struct, enum and constants)
 #include "Custom Headers\dataandconstants.h"
 
-int mod120counter=0;
-char playgroundstr[20][20][3];              // 2 characters for each block // never wanna look back on this
-struct makeplayground playground;
-struct makesnake snake;
-struct makemenudata menudata;
-struct makegameelements gameelements;
-struct makeingameupdate ingameupdate;
-struct makegameinfo gameinfo;
+#include "Custom Headers\globalvariables.h"
 
 // Functions ####################################################
 #include "Custom Headers\displayfuncs.h"

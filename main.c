@@ -328,5 +328,5 @@ helpmain:
 
 
 the_end:
-return 0;
+return;
 }

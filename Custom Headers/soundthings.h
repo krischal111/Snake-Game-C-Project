@@ -11,22 +11,26 @@ void playtuneusing(soundlist s)
 }
 
 // Soundlist available:
-makesound gmusic[] = 
+makesound gmusic[] =
 {
-    {200, 300},
-    {220, 300},
-    {280, 500},
-    {225, 300},
-    {250, 300},
-    {300, 500},
-    {220, 300},
-    {250, 300},
-    {300, 300},
-    {250, 300},
-    {200, 700}
+    {2750, 50},
+    {2250, 70},
+    {1950, 90},
+    {1550, 110},
+    {1150, 140},
+    {750, 150},
+    {750, 150},
+    {550, 160},
+    {550, 160},
+    {250, 200},
+    {250, 200},
+    {250, 200},
+    {200, 200},
+    {200, 200},
+    {100, 600},
 };
 
-soundlist gameovertune = {   .length = 11,   .sound = gmusic  };
+soundlist gameovertune = {   .length = 15,   .sound = gmusic  };
 
 makesound intromusic[] =
 {

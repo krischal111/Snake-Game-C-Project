@@ -68,3 +68,15 @@ makesound powereatmusic[] =
     {1950, 50},
 };
 soundlist powereattune =   {   .length = 2  ,   .sound = powereatmusic};
+
+//Portal_accessed
+makesound portalmusic[] =
+{
+    {1250, 50},
+    {1250, 50},
+    {1950, 90},
+    {1950, 90},
+    {1150, 90},
+
+};
+soundlist portaltune =   {   .length = 5  ,   .sound = portalmusic};

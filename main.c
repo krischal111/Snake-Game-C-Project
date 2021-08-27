@@ -121,6 +121,8 @@ startmain:
 
     case 1: //start game
         // startgame(FALSE);
+        system("cls");
+        system("getsnakemove.exe");
         break;
 
     case 2: //options

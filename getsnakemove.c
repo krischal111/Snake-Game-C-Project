@@ -59,11 +59,11 @@ void startgame(_Bool resumemode)
         menudata.level = 9;
 
         // snake initilization
-        snake.length = 5;
+        snake.length = 1;
         snake.body[0].location = (COORD) {0,0};
         snake.body[0].going    = right;
 
-        // ingamedata initialization
+        // gameelements initialization
         gameelements.barriercount = 0;
 
         gameelements.foood = goodrandomcoord();
@@ -75,8 +75,19 @@ void startgame(_Bool resumemode)
         gameelements.powerfoood = goodrandomcoord();
         gameelements.powerfoodduration = 30;
 
-        gameelements.length5mod=1;
-        
+        gameelements.eat50counter=0;
+
+        gameelements.powerupsavailable = FALSE;
+        gameelements.powerupson = FALSE;
+
+        // ingameupdate initialization
+        ingameupdate = (struct makeingameupdate)
+        {
+            .gameover = FALSE, 
+            .lengthincrease = 4, 
+            .scoreincrease = 0
+        };
+    
         score = getsnaketomove();
     }
 
@@ -89,17 +100,18 @@ void startgame(_Bool resumemode)
 
 int getsnaketomove()
 { 
-    enum direction wheredoigo=snake.body[0].going;
+    enum direction  wheredoigo = snake.body[0].going;
     struct keyboardinputs kb;           // stores all inputs allowed in this game
 
-    ingameupdate.gameover = FALSE;
     displayborder(20,20);
+    ShowConsoleCursor(FALSE);
+
     while(1)
     {
-
         // Fastness:
         fastness();
 
+        // This is special counter, counts from 0 to 119, which helps with periodic ui things in the game, such as score and things
         incremod(&mod120counter,120);
 
         // ############################################ controls human or AI mode

@@ -66,7 +66,7 @@ struct makegameelements
     _Bool powerupsavailable;
     _Bool powerupson;
 
-    int length5mod;
+    int eat50counter;
 };
 
 struct makeingameupdate

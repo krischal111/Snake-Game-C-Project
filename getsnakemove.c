@@ -83,11 +83,11 @@ void startgame(_Bool resumemode)
         // ingameupdate initialization
         ingameupdate = (struct makeingameupdate)
         {
-            .gameover = FALSE, 
-            .lengthincrease = 4, 
+            .gameover = FALSE,
+            .lengthincrease = 4,
             .scoreincrease = 0
         };
-    
+
         score = getsnaketomove();
     }
 
@@ -99,7 +99,7 @@ void startgame(_Bool resumemode)
 }
 
 int getsnaketomove()
-{ 
+{
     enum direction  wheredoigo = snake.body[0].going;
     struct keyboardinputs kb;           // stores all inputs allowed in this game
 
@@ -116,7 +116,7 @@ int getsnaketomove()
 
         // ############################################ controls human or AI mode
         kb=gameinput((menudata.options.AImode?1:0));
-    
+
         // controls exit or pause of game
         if(kb.esc)        break;
         else if(kb.space)
@@ -126,7 +126,7 @@ int getsnaketomove()
         }while(kb.nothing);
 
         // decide direcction, and move snake
-        wheredoigo = getdirection(snake.body[0].going, kb);          
+        wheredoigo = getdirection(snake.body[0].going, kb);
         //############################## spot for increasing/decreasing snake's length
 
         lengthandscoreupdate();
@@ -220,7 +220,7 @@ enum direction getdirection(enum direction currentdirection, struct keyboardinpu
         }
         break;
     }
-    return d;    
+    return d;
 }
 
 void movesnake(enum direction d)
@@ -235,19 +235,19 @@ void movesnake(enum direction d)
     switch(d)
     {
         case up:
-        decremods(&snake.body[0].location.Y, 20);    // Decrements by 1 with modulo 20                  
+        decremods(&snake.body[0].location.Y, 20);    // Decrements by 1 with modulo 20
         break;
 
         case down:
-        incremods(&snake.body[0].location.Y, 20);    // Increments by 1 with modulo 20 (customcalc.h)   
+        incremods(&snake.body[0].location.Y, 20);    // Increments by 1 with modulo 20 (customcalc.h)
         break;
 
         case left:
-        decremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one 
+        decremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one
         break;
 
         case right:
-        incremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one 
+        incremods(&snake.body[0].location.X, 20);    // Comes from opposite end after entering from one
         break;
     }
     snake.body[0].going = d;
@@ -277,7 +277,7 @@ void printsnake()
     for(int i = snake.length-4; i>0; i--)
     {
         gameprint(snake.body[i].location.Y, snake.body[i].location.X, "\333\333");
-        
+
         // Half body mode
         // gameprint(snake.body[i].location.Y, snake.body[i].location.X, bodyblock(doubledirectinof(snake.body[i].going, snake.body[i-1].going)));
     }
@@ -321,7 +321,7 @@ void displayinfos(struct makegameinfo g)
 
         case right:
         printf("Right");
-        break;        
+        break;
     }
 
     int starty = 6, startx = 60;
@@ -385,7 +385,7 @@ void gamedataupdates()
 {
     // Check for portal, and if on there, teleport.
     for(int i = 0; i<gameelements.portalcount; i++)
-    {   
+    {
         if(coordcmp(gameelements.portal[i].start,snake.body[0].location))
         {
             snake.body[0].location = gameelements.portal[i].end;
@@ -405,7 +405,7 @@ void gamedataupdates()
         }
     }
 
-    // check if on food, and if on there, score and length increase + new food spawns 
+    // check if on food, and if on there, score and length increase + new food spawns
     if(coordcmp(gameelements.foood,snake.body[0].location))
     {
         ingameupdate.scoreincrease += menudata.level;
@@ -426,8 +426,13 @@ void gamedataupdates()
     // no food duration increases with each move
     gameelements.nofoodduration++;
 
+<<<<<<< HEAD
     // if no food duration > 100, snake's length and score decreases, no food duration timer resets 
     if(gameelements.nofoodduration>100)
+=======
+    // if no food duration > 50, snake's length and score decreases, no food duration timer resets
+    if(gameelements.nofoodduration>50)
+>>>>>>> acd6f84ee32cbf00f561b64627018136d6fce9bf
     {
         ingameupdate.lengthincrease--;
         ingameupdate.scoreincrease -= 2*menudata.level;

@@ -83,6 +83,22 @@ struct keyboardinputs gameinput(int mode)
         else
         AIdirection = v;
 
+        switch(AIdirection)
+        {
+            case up:
+            input.up    = 1;
+            break;
+            case down:
+            input.down  = 1;
+            break;
+            case right:
+            input.right = 1;
+            break;
+            case left:
+            input.left  = 1;
+            break;
+        }
+
         input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc);
         return input;
     }

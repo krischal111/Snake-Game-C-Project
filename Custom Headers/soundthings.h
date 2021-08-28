@@ -1,12 +1,19 @@
 typedef struct makesound {int f; /* frequency */     int t;  /*time*/} makesound;
 typedef struct soundlist {int length;    struct makesound * sound;   } soundlist;
 
-void playtuneusing(soundlist * s)
+void threadedplaytuneusing(void * voidpointertosoundlist)
 {
+    soundlist * s = (soundlist *) voidpointertosoundlist;
     for(int i = 0; i < s->length; i++)
     {
         Beep(s->sound[i].f, s->sound[i].t);
     }
+
+}
+
+void playtuneusing(soundlist * tunepointer)
+{
+    threadedplaytuneusing((void *) tunepointer);
 }
 
 // Soundlist available:

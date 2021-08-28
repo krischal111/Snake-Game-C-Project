@@ -122,7 +122,7 @@ startmain:
         esc = interactive(confirmText[0],5,2,&y);
         if(esc == 1 || y != 0)
         {
-            y=6;        // position of Exit game in Main menu
+            y=5+(gameisrunning?1:0);        // position of Exit game in Main menu
             goto startmain;
         }
         else
@@ -176,7 +176,7 @@ optionsmain:
     esc = interactive(optionMenu[0],20,2,&y);
     if(esc == 1)
     {
-        y = 2;
+        y = 1+(gameisrunning?1:0);
         goto startmain;
     }
 
@@ -296,7 +296,7 @@ levelsmain:
     esc = interactive(levelsMenu[0],10,10,&y);
     if(esc == 1)
     {   
-        y=3;        // position of level in startmain
+        y=2+(gameisrunning?1:0);        // position of level in startmain
         goto startmain;
     }
 
@@ -304,9 +304,10 @@ levelsmain:
     {
         menudata.level = y+1;
         storemenudata(menudatafilename);
+        y = 2+(gameisrunning?1:0);
         goto startmain;
     }
-    y=3;            // position of level in startmain
+    y=2+(gameisrunning?1:0);            // position of level in startmain
     goto startmain;
 
 
@@ -322,26 +323,26 @@ highscoresmain:
         struct keyboardinputs kb = menuinput();
         if(kb.esc || kb.enter)
         {
-            y=4;        // position of level in startmain
+            y=3+(gameisrunning?1:0);        // position of level in startmain
             goto startmain;
         }
     }
 
-    y=4;        // position of highscore option in startmain
+    y=3+(gameisrunning?1:0);        // position of highscore option in startmain
     goto startmain;
+
 
 
 helpmain:
     system("cls");
     printf("%s",helpText);
-
     while(1)
     {
         Sleep(50);
         struct keyboardinputs kb = menuinput();
         if(kb.esc || kb.enter)
         {
-            y=5;        // position of level in startmain
+            y=4+(gameisrunning?1:0);        // position of level in startmain
             goto startmain;
         }
     }

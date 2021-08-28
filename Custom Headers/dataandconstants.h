@@ -19,6 +19,13 @@ struct keyboardinputs
     int number;
 };
 
+struct alphainputs
+{
+    char c;
+    _Bool nothing;
+};
+
+
 struct makeplayground
 {
     enum blocktype blocktype[20][20];    // down 20 blocks, side 20 blocks

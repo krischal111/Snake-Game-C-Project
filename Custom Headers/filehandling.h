@@ -23,6 +23,7 @@ void storeBestscorelist(struct scoredata mybestscore, char * filename)
     if(myfile==NULL)                                        // If unsuccessful go back without doing anything
     return;
     fwrite(Best5Scores, sizeof(Best5Scores),1,myfile);      // store data into file
+    fflush(myfile);
     fclose(myfile);                                         // close the file
     }
 }
@@ -76,10 +77,10 @@ void storemenudata(char * filename)
     return;
     }
     fwrite(&menudata, sizeof(menudata),1,myfile);
+    fflush(myfile);
     fclose(myfile);
     return;
 }
-
 
 _Bool readmenudata(char * filename)
 {

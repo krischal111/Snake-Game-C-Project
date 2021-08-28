@@ -489,7 +489,7 @@ COORD goodrandomcoord()
 
 void gameover()
 {
-    Sleep(1000);
+    Sleep(500);
     if(menudata.options.soundon)
     playtuneusing(gameovertune);
     system("cls");
@@ -500,12 +500,13 @@ void gameover()
     
     for(int i = 0; (i<5) && !(newhighscore) ; i++)
     {
-        newhighscore = (gameinfo.score > Best5Scores[i].score);
+        newhighscore = newhighscore || (gameinfo.score > Best5Scores[i].score);
     }
     
     if(!newhighscore)   // when no high score
     {
         printf("\n Your score was: %d",gameinfo.score);
+        Sleep(500);
         for(int i = 0; i<50; i++)
         {
             Sleep(100);
@@ -522,6 +523,7 @@ void gameover()
         mybestscore.score = gameinfo.score;
         printf("\nCongrats!!! You set a new High Score. \nYour score = %d\n", gameinfo.score);
         printf("Please enter your good name: ");
+        Sleep(500);
         if(menudata.options.AImode)
         {
             strcpy(mybestscore.name,"Artificial Intelligence");
@@ -534,8 +536,13 @@ void gameover()
             printf("\n");
         }
         else
-        gets(mybestscore.name);
-
+        {
+            ShowConsoleCursor(TRUE);
+            fflush(stdin);
+            Sleep(200);
+            // fgets(mybestscore.name,30,stdin);
+            scantext(mybestscore.name, 30);
+        }
         storeBestscorelist(mybestscore, bestscorefilename);
     }
     

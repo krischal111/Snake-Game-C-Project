@@ -104,7 +104,7 @@ char helpText[2000] =
 " Game Design        :  Krischal Khanal.\n"
 " Map Design         :  Sujan Basnet.\n"
 " Menu and UI Design :  Aavash Bhattarai, Krischal Khanal\n"
-" Documentation      :  Manish Yadav, Aavash Bhattarai, Sujan Basnet, Krischal Khanal"
+" Documentation      :  Manish Yadav"
 " "
 
 "\n\n"

@@ -362,13 +362,13 @@ void gamedataupdates()
         {
             snake.body[0].location = gameelements.portal[i].end;
             if(menudata.options.soundon)
-            playtuneusing(portaltune);
+            playtuneusing(&portaltune);
         }
         else if(coordcmp(gameelements.portal[i].end,snake.body[0].location))
         {
             snake.body[0].location = gameelements.portal[i].start;
             if(menudata.options.soundon)
-            playtuneusing(portaltune);
+            playtuneusing(&portaltune);
         }
     }
 
@@ -398,11 +398,11 @@ void gamedataupdates()
             gameelements.powerfoood = goodrandomcoord();
             gameelements.powerfoodduration = 40;
             if(menudata.options.soundon)
+            // playtuneusing(&powerappeartune);
             ;
-            // playtuneusing(powerappeartune);
         }
         if(menudata.options.soundon)
-        playtuneusing(foodeattune);
+        playtuneusing(&foodeattune);
     }
 
     // no food duration increases with each move
@@ -429,7 +429,7 @@ void gamedataupdates()
             gameelements.presenceofpowerfood = FALSE;
 
             if(menudata.options.soundon)
-            playtuneusing(powereattune);
+            playtuneusing(&powereattune);
         }
 
         // powerfood duration decreases, each time when powerfood is present and not eaten. 
@@ -491,7 +491,7 @@ void gameover()
 {
     Sleep(500);
     if(menudata.options.soundon)
-    playtuneusing(gameovertune);
+    playtuneusing(&gameovertune);
     system("cls");
     _Bool newhighscore = FALSE;
     struct keyboardinputs kb;

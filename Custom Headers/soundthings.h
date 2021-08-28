@@ -1,11 +1,11 @@
 typedef struct makesound {int f; /* frequency */     int t;  /*time*/} makesound;
 typedef struct soundlist {int length;    struct makesound * sound;   } soundlist;
 
-void playtuneusing(soundlist s)
+void playtuneusing(soundlist * s)
 {
-    for(int i = 0; i < s.length; i++)
+    for(int i = 0; i < s->length; i++)
     {
-        Beep(s.sound[i].f, s.sound[i].t);
+        Beep(s->sound[i].f, s->sound[i].t);
     }
 }
 

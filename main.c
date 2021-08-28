@@ -31,7 +31,7 @@ void intro()
     system("cls");
     printf("\n     Welcome to the snakegame game, %s", s.name);
     if(menudata.options.soundon)
-    playtuneusing(introtune);
+    playtuneusing(&introtune);
     Sleep(2000);
     return;
 }

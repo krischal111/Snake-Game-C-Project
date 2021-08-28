@@ -17,21 +17,22 @@ void intro();
 
 void intro()
 {
-    ShowConsoleCursor(FALSE);
+
     struct userdata s;
     if(!readuserdata(userdatafilename,&s))
     {
+        ShowConsoleCursor(TRUE);
         printf("Enter your good name = ");
         fgets(s.name,30,stdin);
+        ShowConsoleCursor(FALSE);
         storeuserdata(userdatafilename, s);
     }
+    ShowConsoleCursor(FALSE);
     system("cls");
     printf("\n     Welcome to the snakegame game, %s", s.name);
     if(menudata.options.soundon)
     playtuneusing(introtune);
     Sleep(2000);
-
-    ShowConsoleCursor(TRUE);
     return;
 }
 

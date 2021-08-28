@@ -55,22 +55,35 @@ struct keyboardinputs gameinput(int mode)
 
     if(mode ==1)       // artificial intelligence mode
     {
-        if(counter==0)
-        {
+        input.up    = 0;
+        input.down  = 0;
+        input.left  = 0;
         input.right = 0;
-        input.down = -1;
-        }
 
-        if(counter==1)
-        {
-        input.right == -1;
-        input.down = 0;
-        }
+        enum direction h, v, AIdirection;
 
-        if(counter == 2)
-        {
-        input.nothing = -1;
-        }
+        COORD abscdiff, coorddifferencemod = 
+        coordsubtractmod((gameelements.presenceofpowerfood)?gameelements.powerfoood:gameelements.foood,snake.body[0].location, 20, 20);
+
+        if(coorddifferencemod.X<10)
+        h = right;
+        else
+        h = left;
+
+        if(coorddifferencemod.Y<10)
+        v = down;
+        else
+        v = up;
+
+        abscdiff.X = (coorddifferencemod.X >= 10)?20-coorddifferencemod.X : coorddifferencemod.X;
+        abscdiff.Y = (coorddifferencemod.Y >= 10)?20-coorddifferencemod.Y : coorddifferencemod.Y;
+
+        if(abscdiff.X>abscdiff.Y)
+        AIdirection = h;
+        else
+        AIdirection = v;
+
+        input.nothing = !(input.up||input.down||input.left||input.right||input.enter||input.space||input.esc);
         return input;
     }
 }

@@ -88,6 +88,29 @@ COORD coordfullcompare(COORD p1, COORD p2)
     return result;
 }
 
+COORD coordadd(COORD p1, COORD p2)
+{
+    COORD result;
+    result.X = p1.X + p2.X;
+    result.Y = p1.Y + p2.Y;
+    return result;
+}
+
+COORD coordsubtract(COORD p2, COORD p1)
+{
+    COORD result;
+    result .X = p2.X - p1.X;
+    result .Y = p2.Y - p1.Y;
+    return result;
+}
+
+COORD coordsubtractmod(COORD p2, COORD p1, int modx, int mody)
+{
+    COORD result = coordsubtract(p2, p1);
+    result.X = mod(result.X, modx);
+    result.Y = mod(result.Y, mody);
+    return result;
+}
 
 _Bool coordcmp(COORD p1, COORD p2)
 {

@@ -13,19 +13,38 @@
 #include"Actual Games\getsnakemove.c"           // Actual Game
 void menu();
 int interactive(char *, int, int, int *);
+void intro();
+
+void intro()
+{
+    ShowConsoleCursor(FALSE);
+    struct userdata s;
+    if(!readuserdata(userdatafilename,&s))
+    {
+        printf("Enter your good name = ");
+        fgets(s.name,30,stdin);
+        storeuserdata(userdatafilename, s);
+    }
+    system("cls");
+    printf("\n     Welcome to the snakegame game, %s", s.name);
+    if(menudata.options.soundon)
+    playtuneusing(introtune);
+    Sleep(2000);
+
+    ShowConsoleCursor(TRUE);
+    return;
+}
 
 
 int main()
 {
-
     if(!readmenudata(menudatafilename))
     {
         system(makefoldertext);
         system("cls");
     }
     readBestscorelist(bestscorefilename);
-    if(menudata.options.soundon)
-    playtuneusing(introtune);
+    intro();
     menu();
 }
 

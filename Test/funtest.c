@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "Custom Headers\allheaders.h"
-#include "Custom Headers\dataandconstants.h"
-#include "Custom Headers\kbandmouse.h"
+#include "..\Custom Headers\allheaders.h"
+#include "..\Custom Headers\dataandconstants.h"
+#include "..\Custom Headers\kbandmouse.h"
 int main()
 {
     char name[30];

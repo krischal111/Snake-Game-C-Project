@@ -94,6 +94,31 @@ _Bool readmenudata(char * filename)
     return 1;
 }
 
+void storeuserdata(char * filename, struct userdata user_data)
+{
+    FILE * myfile = fopen(filename, "wb");
+    {
+    if(myfile == NULL)
+    return;
+    }
+    fwrite(&user_data, sizeof(struct userdata),1,myfile);
+    fflush(myfile);
+    fclose(myfile);
+    return;
+}
+
+_Bool readuserdata(char * filename, struct userdata * userdatapointer)
+{
+    FILE * myfile = fopen(filename, "rb");
+    {
+        if(myfile == NULL)
+        return 0;
+    }
+    fread(userdatapointer, sizeof(struct userdata),1,myfile);
+    fclose(myfile);
+    return 1;
+}
+
 void rek_mkdir(char *path) 
 {
    char *sep = strrchr(path, '\\');

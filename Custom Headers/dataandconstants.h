@@ -91,7 +91,12 @@ struct scoredata
     char name[30];
     unsigned int score;
 };
- 
+
+struct userdata
+{
+    char name[30];
+};
+
 struct makemenudata
 {
     //char name[30];
@@ -161,3 +166,4 @@ const char * food_f[] = {"\004 ", "\003 "} ,    *powerfood_f[]  = {"\376 ", "\03
 char * makefoldertext = "mkdir \"Saved Game Data\"";
 char * bestscorefilename = "Saved Game Data\\bestscore.binarydata";
 char * menudatafilename = "Saved Game Data\\menusettings.binarydata";
+char * userdatafilename = "Saved Game Data\\userdata.binarydata";

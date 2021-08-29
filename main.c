@@ -87,7 +87,7 @@ menubegin:
         printf("%2d. %s   \n",i+1, (menutext+i*size));
     }
     ShowConsoleCursor(TRUE);
-    gotoxy(startx+20,*y + starty);
+    gotoxy(startx+21,*y + starty);
 
     while(1)
     {

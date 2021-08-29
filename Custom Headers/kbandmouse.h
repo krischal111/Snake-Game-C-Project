@@ -104,17 +104,43 @@ struct keyboardinputs gameinput(int mode)
     }
 }
 
+void clearinput()
+{
+
+    GetAsyncKeyState(VK_ESCAPE);
+    GetAsyncKeyState(VK_BACK);
+    GetAsyncKeyState(VK_UP);    GetAsyncKeyState(0x57);
+    GetAsyncKeyState(VK_DOWN);  GetAsyncKeyState(0x53);
+    GetAsyncKeyState(VK_RIGHT); GetAsyncKeyState(0x44);
+    GetAsyncKeyState(VK_LEFT);  GetAsyncKeyState(0x41);
+    GetAsyncKeyState(VK_RETURN);
+    GetAsyncKeyState(VK_SHIFT);
+
+    for(int i='A'; i<= 'Z'; i++)
+    {
+        GetAsyncKeyState(i);
+    }
+
+    for(int i = 0; i<=9; i++)
+    {
+        GetAsyncKeyState('0'+i);
+        GetAsyncKeyState(VK_NUMPAD0 + i);
+    }
+
+    return;
+}
+
 struct keyboardinputs menuinput()
 {
     Sleep(50);
     struct keyboardinputs input;
 
-    input.esc   = (GetAsyncKeyState(VK_ESCAPE) & MSB_s)      || (GetAsyncKeyState(VK_BACK) * MSB_s);
+    input.esc   = (GetAsyncKeyState(VK_ESCAPE) & MSB_LSB_s)      || (GetAsyncKeyState(VK_BACK) * MSB_LSB_s);
     input.up    = (GetAsyncKeyState(VK_UP) & MSB_LSB_s)      || (GetAsyncKeyState(0x57) & MSB_LSB_s); // W
     input.down  = (GetAsyncKeyState(VK_DOWN) & MSB_LSB_s)    || (GetAsyncKeyState(0x53) & MSB_LSB_s); // S
     input.right = (GetAsyncKeyState(VK_RIGHT) & MSB_LSB_s)   || (GetAsyncKeyState(0x44) & MSB_LSB_s); // D
     input.left  = (GetAsyncKeyState(VK_LEFT) & MSB_LSB_s)    || (GetAsyncKeyState(0x41) & MSB_LSB_s); // A
-    input.enter = (GetAsyncKeyState(VK_RETURN) & MSB_s);
+    input.enter = (GetAsyncKeyState(VK_RETURN) & MSB_LSB_s);
 
     input.numpress = FALSE;
     for(int i = 0; i<=9; i++)
@@ -188,6 +214,10 @@ struct alphainputs normalinput()
 
 int scantext(char *str, int n)
 {
+    for(int i = 0; i<n; i++)
+    {
+        normalinput();
+    }
     Sleep(100);
     struct alphainputs a;
     for(int i = 0; i<n; i++)
@@ -215,6 +245,10 @@ int scantext(char *str, int n)
             a.c = 0;
             i--;
             str[i] = a.c;
+            goto lstart;
+        }
+            else if(i == 0)
+        {
             goto lstart;
         }
 

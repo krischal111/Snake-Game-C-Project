@@ -17,19 +17,28 @@ void intro();
 
 void intro()
 {
-
-    struct userdata s;
-    if(!readuserdata(userdatafilename,&s))
+    _Bool promptuserdata = FALSE;
+    if(promptuserdata)
     {
-        ShowConsoleCursor(TRUE);
-        printf("Enter your good name = ");
-        fgets(s.name,30,stdin);
+        struct userdata s;
+        if(!readuserdata(userdatafilename,&s))
+        {
+            ShowConsoleCursor(TRUE);
+            printf("Enter your good name = ");
+            fgets(s.name,30,stdin);
+            ShowConsoleCursor(FALSE);
+            storeuserdata(userdatafilename, s);
+        }
         ShowConsoleCursor(FALSE);
-        storeuserdata(userdatafilename, s);
+        system("cls");
+        printf("\n     Welcome to the snake game, %s", s.name);
     }
-    ShowConsoleCursor(FALSE);
-    system("cls");
-    printf("\n     Welcome to the snakegame game, %s", s.name);
+    else
+    {
+        printf("%s",introtext);
+        Sleep(1000);
+    }
+
     if(menudata.options.soundon)
     playtuneusing(&introtune);
     Sleep(2000);
@@ -56,6 +65,11 @@ int interactive(char *menutext,int size,int n,int *y)
     *y %= n; 
     struct keyboardinputs kb;
 
+    for(int i = 0; i<20; i++)
+    {
+        clearinput();
+    }
+
 menubegin:
     ShowConsoleCursor(FALSE);    
     gotoxy(0,starty);
@@ -70,7 +84,7 @@ menubegin:
         {
             printf("    ");
         }
-        printf("%d. %s   \n",i+1, (menutext+i*size));
+        printf("%2d. %s   \n",i+1, (menutext+i*size));
     }
     ShowConsoleCursor(TRUE);
     gotoxy(startx+20,*y + starty);

@@ -545,5 +545,10 @@ void gameover()
         }
         storeBestscorelist(mybestscore, bestscorefilename);
     }
+
+    for(int i = 0; i<20; i++)
+    {
+        clearinput();
+    }
     
 }

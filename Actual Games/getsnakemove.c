@@ -97,7 +97,7 @@ int getsnaketomove()
             kb = gameinput(0);              // wait for human input when paused
         }while(kb.nothing);
 
-        // decide direcction, and move snake
+        // decide direction, and move snake
         wheredoigo = getdirection(snake.body[0].going, kb);
         //############################## spot for increasing/decreasing snake's length
 
@@ -463,7 +463,7 @@ COORD goodrandomcoord()
 
     do
     {
-        doitagain = FALSE;      // DOITAGAIN STARTS WITH FALSE ON EACH ITERATION REMEMBER THAT
+        doitagain = FALSE;      // DOITAGAIN STARTS WITH FALSE ON EACH ITERATION 
         c = randomcoord();
 
         for(int i = 0; i<gameelements.portalcount; i++)
@@ -482,7 +482,7 @@ COORD goodrandomcoord()
         for(int i = 0; i<snake.length; i++)
         doitagain = doitagain || coordcmp(snake.body[i].location,c);
 
-    // but when random coordinate matches with anything else, doitagain becomes true, causeing loop to DO IT AGAIN
+    // but when random coordinate matches with anything else, doitagain becomes true, causing loop to DO IT AGAIN
     }while(doitagain);
     return c;
 }
